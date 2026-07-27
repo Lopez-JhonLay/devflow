@@ -10,7 +10,7 @@ const adapter = new PrismaPg({
 });
 
 // 2. Pass the adapter to the PrismaClient
-const prisma = new PrismaClient({ adapter });
+const prisma = new PrismaClient({ adapter }) as PrismaClient;
 
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {

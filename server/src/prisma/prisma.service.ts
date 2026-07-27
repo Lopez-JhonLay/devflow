@@ -10,6 +10,6 @@ export class PrismaService extends PrismaClient {
 
     const adapter = new PrismaPg(pool);
 
-    super({ adapter });
+    super({ adapter } as any);
   }
 }
