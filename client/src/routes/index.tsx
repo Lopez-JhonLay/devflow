@@ -4,8 +4,8 @@ import RegisterPage from '@/pages/Register';
 import LoginPage from '@/pages/Login';
 import ForgotPasswordPage from '@/pages/ForgotPassword';
 import DashboardPage from '@/pages/Dashboard';
-import { AuthGuard } from '@/components/auth/auth-guard'; // 1. Import the guard
-
+import { AuthGuard } from '@/components/auth/auth-guard';
+import { AppLayout } from '@/components/layout/AppLayout';
 export const router = createBrowserRouter([
   {
     path: '/',
@@ -27,28 +27,32 @@ export const router = createBrowserRouter([
 
   // --- Protected Routes ---
   {
-    element: <AuthGuard />, // 2. The Bouncer stands here
+    element: <AuthGuard />,
     children: [
-      // 3. Everything inside this array is protected!
       {
-        path: '/dashboard',
-        element: <DashboardPage />,
-      },
-      {
-        path: '/projects',
-        element: <div>Projects (Protected)</div>,
-      },
-      {
-        path: '/projects/:id',
-        element: <div>Project Documentation (Protected)</div>,
-      },
-      {
-        path: '/snippets',
-        element: <div>Snippets (Protected)</div>,
-      },
-      {
-        path: '/settings',
-        element: <div>Settings (Protected)</div>,
+        element: <AppLayout />,
+        children: [
+          {
+            path: '/dashboard',
+            element: <DashboardPage />,
+          },
+          {
+            path: '/projects',
+            element: <div>Projects (Protected)</div>,
+          },
+          {
+            path: '/projects/:id',
+            element: <div>Project Documentation (Protected)</div>,
+          },
+          {
+            path: '/snippets',
+            element: <div>Snippets (Protected)</div>,
+          },
+          {
+            path: '/settings',
+            element: <div>Settings (Protected)</div>,
+          },
+        ],
       },
     ],
   },
