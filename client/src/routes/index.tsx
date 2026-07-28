@@ -1,39 +1,55 @@
 import { createBrowserRouter } from 'react-router-dom';
 import App from '../App';
+import RegisterPage from '@/pages/Register';
+import LoginPage from '@/pages/Login';
+import ForgotPasswordPage from '@/pages/ForgotPassword';
+import DashboardPage from '@/pages/Dashboard';
+import { AuthGuard } from '@/components/auth/auth-guard'; // 1. Import the guard
 
 export const router = createBrowserRouter([
   {
     path: '/',
-    element: <App />, // You can replace this with a Landing Page or redirect to /dashboard later
+    element: <App />,
   },
-  // Public Routes
+  // --- Public Routes ---
   {
     path: '/login',
-    element: <div>Login Page (Public)</div>,
+    element: <LoginPage />,
   },
   {
     path: '/register',
-    element: <div>Register Page (Public)</div>,
-  },
-  // Protected Routes (We will add an AuthGuard wrapper here later)
-  {
-    path: '/dashboard',
-    element: <div>Dashboard (Protected)</div>,
+    element: <RegisterPage />,
   },
   {
-    path: '/projects',
-    element: <div>Projects (Protected)</div>,
+    path: '/forgot-password',
+    element: <ForgotPasswordPage />,
   },
+
+  // --- Protected Routes ---
   {
-    path: '/projects/:id',
-    element: <div>Project Documentation (Protected)</div>,
-  },
-  {
-    path: '/snippets',
-    element: <div>Snippets (Protected)</div>,
-  },
-  {
-    path: '/settings',
-    element: <div>Settings (Protected)</div>,
+    element: <AuthGuard />, // 2. The Bouncer stands here
+    children: [
+      // 3. Everything inside this array is protected!
+      {
+        path: '/dashboard',
+        element: <DashboardPage />,
+      },
+      {
+        path: '/projects',
+        element: <div>Projects (Protected)</div>,
+      },
+      {
+        path: '/projects/:id',
+        element: <div>Project Documentation (Protected)</div>,
+      },
+      {
+        path: '/snippets',
+        element: <div>Snippets (Protected)</div>,
+      },
+      {
+        path: '/settings',
+        element: <div>Settings (Protected)</div>,
+      },
+    ],
   },
 ]);
