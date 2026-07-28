@@ -6,6 +6,8 @@ import { PrismaModule } from './prisma/prisma.module';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from '@thallesp/nestjs-better-auth';
 import { auth } from './auth/auth';
+import { WorkspaceService } from './workspace/workspace.service';
+import { WorkspaceController } from './workspace/workspace.controller';
 
 @Module({
   imports: [
@@ -13,7 +15,7 @@ import { auth } from './auth/auth';
     PrismaModule,
     AuthModule.forRoot({ auth }),
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, WorkspaceController],
+  providers: [AppService, WorkspaceService],
 })
 export class AppModule {}
