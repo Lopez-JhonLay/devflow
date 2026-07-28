@@ -13,6 +13,10 @@ const adapter = new PrismaPg({
 const prisma = new PrismaClient({ adapter }) as PrismaClient;
 
 export const auth = betterAuth({
+  baseURL: 'http://localhost:3000',
+
+  trustedOrigins: ['http://localhost:5173'],
+
   database: prismaAdapter(prisma, {
     provider: 'postgresql',
   }),
