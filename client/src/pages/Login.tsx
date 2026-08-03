@@ -4,10 +4,12 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { authClient } from '@/lib/auth-client';
+import { ThemeToggle } from '@/components/shared/ThemeToggle';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Triangle } from 'lucide-react';
+import { GitHubIcon } from '@/components/shared/GitHubIcon';
 
 const loginSchema = z.object({
   email: z.string().email({ message: 'Please enter a valid email address' }),
@@ -48,15 +50,19 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50 p-4 font-sans">
-      <div className="w-full max-w-110 rounded-[24px] bg-white p-8 shadow-sm border border-gray-100">
+    <div className="relative flex min-h-screen items-center justify-center bg-background p-4 font-sans text-foreground">
+      <div className="absolute right-4 top-4">
+        <ThemeToggle />
+      </div>
+
+      <div className="w-full max-w-110 rounded-[32px] border border-border bg-card p-8 text-card-foreground shadow-sm">
         <div className="flex flex-col items-center mb-8">
           <div className="flex items-center gap-2 mb-6">
-            <Triangle className="h-6 w-6 fill-gray-900 text-gray-900" />
-            <span className="text-xl font-bold tracking-tight text-gray-900">DevFlow</span>
+            <Triangle className="h-6 w-6 fill-foreground text-foreground" />
+            <span className="text-xl font-bold tracking-tight text-foreground">DevFlow</span>
           </div>
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">Welcome back</h1>
-          <p className="text-sm text-gray-500 text-center">Sign in to your DevFlow account.</p>
+          <h1 className="text-2xl font-bold text-foreground mb-2">Welcome back</h1>
+          <p className="text-sm text-muted-foreground text-center">Sign in to your DevFlow account.</p>
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
@@ -65,7 +71,7 @@ export default function LoginPage() {
           )}
 
           <div className="space-y-2">
-            <Label htmlFor="email" className="text-sm font-medium text-gray-700">
+            <Label htmlFor="email" className="text-sm font-medium text-foreground">
               Email
             </Label>
             <Input
@@ -73,36 +79,36 @@ export default function LoginPage() {
               type="email"
               placeholder="janedoe@example.com"
               {...register('email')}
-              className={`rounded-lg bg-gray-50/50 border-gray-200 focus-visible:ring-gray-900 ${errors.email ? 'border-red-500' : ''}`}
+              className={`bg-background/50 ${errors.email ? 'border-red-500' : ''}`}
             />
             {errors.email && <p className="text-xs text-red-500">{errors.email.message}</p>}
           </div>
 
           <div className="space-y-2">
-            <div className="flex items-center justify-between">
-              <Label htmlFor="password" className="text-sm font-medium text-gray-700">
-                Password
-              </Label>
-              <Link
-                to="/forgot-password"
-                className="text-sm font-medium text-gray-500 hover:text-gray-900 underline underline-offset-4"
-              >
-                Forgot password?
-              </Link>
-            </div>
+            <Label htmlFor="password" className="text-sm font-medium text-foreground">
+              Password
+            </Label>
             <Input
               id="password"
               type="password"
               placeholder="••••••••••••••"
               {...register('password')}
-              className={`rounded-lg bg-gray-50/50 border-gray-200 focus-visible:ring-gray-900 ${errors.password ? 'border-red-500' : ''}`}
+              className={`bg-background/50 ${errors.password ? 'border-red-500' : ''}`}
             />
             {errors.password && <p className="text-xs text-red-500">{errors.password.message}</p>}
+            <div className="text-right">
+              <Link
+                to="/forgot-password"
+                className="inline-block text-sm font-medium text-muted-foreground hover:text-foreground"
+              >
+                Forgot password?
+              </Link>
+            </div>
           </div>
 
           <Button
             type="submit"
-            className="cursor-pointer w-full rounded-full bg-gray-900 text-white hover:bg-gray-800 h-11 text-base font-medium mt-2"
+            className="cursor-pointer w-full rounded-full h-11 text-base font-medium mt-2"
             disabled={isSubmitting}
           >
             {isSubmitting ? 'Signing in...' : 'Sign In'}
@@ -110,9 +116,11 @@ export default function LoginPage() {
         </form>
 
         <div className="my-8 flex items-center">
-          <div className="grow border-t border-gray-200"></div>
-          <span className="mx-4 text-xs font-medium uppercase text-gray-400 tracking-wider">Or continue with</span>
-          <div className="grow border-t border-gray-200"></div>
+          <div className="grow border-t border-border"></div>
+          <span className="mx-4 text-xs font-medium uppercase text-muted-foreground tracking-wider">
+            Or continue with
+          </span>
+          <div className="grow border-t border-border"></div>
         </div>
 
         <div className="space-y-3">
@@ -120,7 +128,7 @@ export default function LoginPage() {
             type="button"
             variant="outline"
             onClick={() => handleSocialLogin('google')}
-            className="cursor-pointer w-full rounded-full h-11 border-gray-200 text-gray-700 hover:bg-gray-50 font-medium relative"
+            className="cursor-pointer w-full rounded-full h-11 font-medium relative"
           >
             <svg className="h-5 w-5 absolute left-4" viewBox="0 0 24 24">
               <path
@@ -146,16 +154,19 @@ export default function LoginPage() {
             type="button"
             variant="outline"
             onClick={() => handleSocialLogin('github')}
-            className="cursor-pointer w-full rounded-full h-11 border-gray-200 text-gray-700 hover:bg-gray-50 font-medium relative"
+            className="cursor-pointer w-full rounded-full h-11 font-medium relative"
           >
-            {/* <Github className="h-5 w-5 absolute left-4 text-gray-900" /> */}
+            <GitHubIcon className="h-5 w-5 absolute left-4" />
             Sign in with GitHub
           </Button>
         </div>
 
-        <div className="mt-8 text-center text-sm text-gray-500">
+        <div className="mt-8 text-center text-sm text-muted-foreground">
           Don't have an account?{' '}
-          <Link to="/register" className="font-medium text-gray-900 underline hover:text-gray-700 underline-offset-4">
+          <Link
+            to="/register"
+            className="font-medium text-foreground underline hover:text-muted-foreground underline-offset-4"
+          >
             Sign up
           </Link>
         </div>

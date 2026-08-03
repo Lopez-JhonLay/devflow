@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Get,
   Put,
   Post,
   Req,
@@ -21,6 +22,11 @@ import { ChangePasswordDto } from './dto/change-password.dto';
 @UseGuards(SessionGuard)
 export class SettingsController {
   constructor(private readonly settingsService: SettingsService) {}
+
+  @Get('account')
+  getAccountSettings(@CurrentUser() user: User) {
+    return this.settingsService.getAccountSettings(user.id);
+  }
 
   @Put('profile')
   updateProfile(@CurrentUser() user: User, @Body() body: UpdateProfileDto) {

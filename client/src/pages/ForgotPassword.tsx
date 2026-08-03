@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { authClient } from '@/lib/auth-client';
+import { ThemeToggle } from '@/components/shared/ThemeToggle';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -44,15 +45,19 @@ export default function ForgotPasswordPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50 p-4 font-sans">
-      <div className="w-full max-w-110 rounded-[24px] bg-white p-8 shadow-sm border border-gray-100">
+    <div className="relative flex min-h-screen items-center justify-center bg-background p-4 font-sans text-foreground">
+      <div className="absolute right-4 top-4">
+        <ThemeToggle />
+      </div>
+
+      <div className="w-full max-w-110 rounded-[32px] border border-border bg-card p-8 text-card-foreground shadow-sm">
         <div className="flex flex-col items-center mb-8">
           <div className="flex items-center gap-2 mb-6">
-            <Triangle className="h-6 w-6 fill-gray-900 text-gray-900" />
-            <span className="text-xl font-bold tracking-tight text-gray-900">DevFlow</span>
+            <Triangle className="h-6 w-6 fill-foreground text-foreground" />
+            <span className="text-xl font-bold tracking-tight text-foreground">DevFlow</span>
           </div>
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">Reset password</h1>
-          <p className="text-sm text-gray-500 text-center">
+          <h1 className="text-2xl font-bold text-foreground mb-2">Reset password</h1>
+          <p className="text-sm text-muted-foreground text-center">
             Enter your email address and we will send you a link to reset your password.
           </p>
         </div>
@@ -67,7 +72,7 @@ export default function ForgotPasswordPage() {
           )}
 
           <div className="space-y-2">
-            <Label htmlFor="email" className="text-sm font-medium text-gray-700">
+            <Label htmlFor="email" className="text-sm font-medium text-foreground">
               Email
             </Label>
             <Input
@@ -75,14 +80,14 @@ export default function ForgotPasswordPage() {
               type="email"
               placeholder="janedoe@example.com"
               {...register('email')}
-              className={`rounded-lg bg-gray-50/50 border-gray-200 focus-visible:ring-gray-900 ${errors.email ? 'border-red-500' : ''}`}
+              className={`bg-background/50 ${errors.email ? 'border-red-500' : ''}`}
             />
             {errors.email && <p className="text-xs text-red-500">{errors.email.message}</p>}
           </div>
 
           <Button
             type="submit"
-            className="w-full rounded-full bg-gray-900 text-white hover:bg-gray-800 h-11 text-base font-medium mt-2"
+            className="w-full rounded-full h-11 text-base font-medium mt-2"
             disabled={isSubmitting}
           >
             {isSubmitting ? 'Sending instructions...' : 'Send Reset Link'}
@@ -92,7 +97,7 @@ export default function ForgotPasswordPage() {
         <div className="mt-8 text-center">
           <Link
             to="/login"
-            className="inline-flex items-center text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors"
+            className="inline-flex items-center text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
           >
             <ArrowLeft className="mr-2 h-4 w-4" />
             Back to login

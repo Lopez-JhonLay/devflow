@@ -14,11 +14,39 @@ const AVATAR_ALLOWED_FORMATS = ['png', 'jpg', 'jpeg', 'webp'];
 export class SettingsService {
   constructor(private prisma: PrismaService) {}
 
+  async getAccountSettings(userId: string) {
+    const accounts = await this.prisma.account.findMany({
+      where: { userId },
+      select: {
+        providerId: true,
+        password: true,
+      },
+    });
+
+    const providers = accounts.map((account) => account.providerId);
+    const hasPassword = accounts.some(
+      (account) =>
+        account.providerId === 'credential' && Boolean(account.password),
+    );
+
+    return {
+      success: true,
+      data: {
+        hasPassword,
+        providers,
+      },
+    };
+  }
+
   async updateProfile(userId: string, dto: UpdateProfileDto) {
     const data = this.validateProfileInput(dto ?? {});
 
     if (Object.keys(data).length === 0) {
       throw new BadRequestException('At least one profile field is required.');
+    }
+
+    if (data.image === null) {
+      await this.deleteAvatarFromCloudinary(userId);
     }
 
     const user = await this.prisma.user.update({
@@ -55,6 +83,7 @@ export class SettingsService {
     const timestamp = Math.round(Date.now() / 1000);
     const publicId = `devflow/avatars/${userId}`;
     const uploadParams = {
+      invalidate: true,
       overwrite: true,
       public_id: publicId,
       timestamp,
@@ -67,6 +96,7 @@ export class SettingsService {
         apiKey,
         timestamp,
         publicId,
+        invalidate: true,
         overwrite: true,
         signature: this.signCloudinaryParams(uploadParams, apiSecret),
         uploadUrl: `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
@@ -154,5 +184,57 @@ export class SettingsService {
     return createHash('sha1')
       .update(`${serializedParams}${apiSecret}`)
       .digest('hex');
+  }
+
+  private async deleteAvatarFromCloudinary(userId: string) {
+    const cloudName = process.env.CLOUDINARY_CLOUD_NAME;
+    const apiKey = process.env.CLOUDINARY_API_KEY;
+    const apiSecret = process.env.CLOUDINARY_API_SECRET;
+
+    if (!cloudName || !apiKey || !apiSecret) {
+      throw new InternalServerErrorException(
+        'Cloudinary environment variables are not configured.',
+      );
+    }
+
+    const timestamp = Math.round(Date.now() / 1000);
+    const publicId = `devflow/avatars/${userId}`;
+    const destroyParams = {
+      invalidate: true,
+      public_id: publicId,
+      timestamp,
+    };
+    const body = new URLSearchParams({
+      api_key: apiKey,
+      invalidate: 'true',
+      public_id: publicId,
+      timestamp: String(timestamp),
+      signature: this.signCloudinaryParams(destroyParams, apiSecret),
+    });
+
+    const response = await fetch(
+      `https://api.cloudinary.com/v1_1/${cloudName}/image/destroy`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body,
+      },
+    );
+
+    if (!response.ok) {
+      throw new InternalServerErrorException(
+        'Failed to delete avatar from Cloudinary.',
+      );
+    }
+
+    const result = (await response.json()) as { result?: string };
+
+    if (result.result && !['ok', 'not found'].includes(result.result)) {
+      throw new InternalServerErrorException(
+        'Failed to delete avatar from Cloudinary.',
+      );
+    }
   }
 }

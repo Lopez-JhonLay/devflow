@@ -15,15 +15,15 @@ export function AppLayout() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
-    <div className="flex flex-col md:flex-row h-screen w-full bg-white overflow-hidden">
-      <div className="md:hidden flex items-center justify-between p-4 border-b border-gray-200 bg-white shrink-0">
+    <div className="flex h-screen w-full flex-col overflow-hidden bg-background text-foreground md:flex-row">
+      <div className="flex shrink-0 items-center justify-between border-b border-border bg-background p-4 md:hidden">
         <div className="flex items-center gap-2">
-          <Triangle className="h-5 w-5 fill-gray-900 text-gray-900" />
-          <span className="text-base font-bold tracking-tight text-gray-900">DevFlow</span>
+          <Triangle className="h-5 w-5 fill-foreground text-foreground" />
+          <span className="text-base font-bold tracking-tight text-foreground">DevFlow</span>
         </div>
         <button
           onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-          className="p-2 -mr-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
+          className="-mr-2 rounded-lg p-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
           aria-label="Toggle menu"
         >
           {isSidebarOpen ? <X size={20} /> : <Menu size={20} />}
@@ -39,7 +39,7 @@ export function AppLayout() {
 
       <div
         className={`
-        fixed inset-y-0 left-0 z-50 w-64 transform transition-transform duration-300 ease-in-out bg-gray-50/50
+        fixed inset-y-0 left-0 z-50 w-64 transform bg-sidebar transition-transform duration-300 ease-in-out
         md:relative md:transform-none md:flex shrink-0
         ${isSidebarOpen ? 'translate-x-0 shadow-2xl' : '-translate-x-full md:translate-x-0'}
       `}

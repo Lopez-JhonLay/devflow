@@ -4,10 +4,12 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { authClient } from '@/lib/auth-client';
+import { ThemeToggle } from '@/components/shared/ThemeToggle';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Triangle } from 'lucide-react';
+import { GitHubIcon } from '@/components/shared/GitHubIcon';
 
 // 1. Define the strict validation schema
 const registerSchema = z
@@ -60,15 +62,19 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50 p-4 font-sans">
-      <div className="w-full max-w-110 rounded-[24px] bg-white p-8 shadow-sm border border-gray-100">
+    <div className="relative flex min-h-screen items-center justify-center bg-background p-4 font-sans text-foreground">
+      <div className="absolute right-4 top-4">
+        <ThemeToggle />
+      </div>
+
+      <div className="w-full max-w-110 rounded-[32px] border border-border bg-card p-8 text-card-foreground shadow-sm">
         <div className="flex flex-col items-center mb-8">
           <div className="flex items-center gap-2 mb-6">
-            <Triangle className="h-6 w-6 fill-gray-900 text-gray-900" />
-            <span className="text-xl font-bold tracking-tight text-gray-900">DevFlow</span>
+            <Triangle className="h-6 w-6 fill-foreground text-foreground" />
+            <span className="text-xl font-bold tracking-tight text-foreground">DevFlow</span>
           </div>
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">Create your account</h1>
-          <p className="text-sm text-gray-500 text-center">Join DevFlow to centralize your software resources.</p>
+          <h1 className="text-2xl font-bold text-foreground mb-2">Create your account</h1>
+          <p className="text-sm text-muted-foreground text-center">Join DevFlow to centralize your software resources.</p>
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
@@ -77,7 +83,7 @@ export default function RegisterPage() {
           )}
 
           <div className="space-y-2">
-            <Label htmlFor="email" className="text-sm font-medium text-gray-700">
+            <Label htmlFor="email" className="text-sm font-medium text-foreground">
               Email
             </Label>
             <Input
@@ -85,13 +91,13 @@ export default function RegisterPage() {
               type="email"
               placeholder="janedoe@example.com"
               {...register('email')}
-              className={`rounded-lg bg-gray-50/50 border-gray-200 focus-visible:ring-gray-900 ${errors.email ? 'border-red-500' : ''}`}
+              className={`bg-background/50 ${errors.email ? 'border-red-500' : ''}`}
             />
             {errors.email && <p className="text-xs text-red-500">{errors.email.message}</p>}
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="password" className="text-sm font-medium text-gray-700">
+            <Label htmlFor="password" className="text-sm font-medium text-foreground">
               Password
             </Label>
             <Input
@@ -99,13 +105,13 @@ export default function RegisterPage() {
               type="password"
               placeholder="••••••••••••••"
               {...register('password')}
-              className={`rounded-lg bg-gray-50/50 border-gray-200 focus-visible:ring-gray-900 ${errors.password ? 'border-red-500' : ''}`}
+              className={`bg-background/50 ${errors.password ? 'border-red-500' : ''}`}
             />
             {errors.password && <p className="text-xs text-red-500">{errors.password.message}</p>}
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="confirmPassword" className="text-sm font-medium text-gray-700">
+            <Label htmlFor="confirmPassword" className="text-sm font-medium text-foreground">
               Confirm Password
             </Label>
             <Input
@@ -113,14 +119,14 @@ export default function RegisterPage() {
               type="password"
               placeholder="••••••••••••••"
               {...register('confirmPassword')}
-              className={`rounded-lg bg-gray-50/50 border-gray-200 focus-visible:ring-gray-900 ${errors.confirmPassword ? 'border-red-500' : ''}`}
+              className={`bg-background/50 ${errors.confirmPassword ? 'border-red-500' : ''}`}
             />
             {errors.confirmPassword && <p className="text-xs text-red-500">{errors.confirmPassword.message}</p>}
           </div>
 
           <Button
             type="submit"
-            className="cursor-pointer w-full rounded-full bg-gray-900 text-white hover:bg-gray-800 h-11 text-base font-medium mt-2"
+            className="cursor-pointer w-full rounded-full h-11 text-base font-medium mt-2"
             disabled={isSubmitting}
           >
             {isSubmitting ? 'Creating account...' : 'Create Account'}
@@ -128,9 +134,9 @@ export default function RegisterPage() {
         </form>
 
         <div className="my-8 flex items-center">
-          <div className="grow border-t border-gray-200"></div>
-          <span className="mx-4 text-xs font-medium uppercase text-gray-400 tracking-wider">Or sign up with</span>
-          <div className="grow border-t border-gray-200"></div>
+          <div className="grow border-t border-border"></div>
+          <span className="mx-4 text-xs font-medium uppercase text-muted-foreground tracking-wider">Or sign up with</span>
+          <div className="grow border-t border-border"></div>
         </div>
 
         <div className="space-y-3">
@@ -138,7 +144,7 @@ export default function RegisterPage() {
             type="button"
             variant="outline"
             onClick={() => handleSocialLogin('google')}
-            className="cursor-pointer w-full rounded-full h-11 border-gray-200 text-gray-700 hover:bg-gray-50 font-medium relative"
+            className="cursor-pointer w-full rounded-full h-11 font-medium relative"
           >
             <svg className="h-5 w-5 absolute left-4" viewBox="0 0 24 24">
               <path
@@ -164,16 +170,16 @@ export default function RegisterPage() {
             type="button"
             variant="outline"
             onClick={() => handleSocialLogin('github')}
-            className="cursor-pointer w-full rounded-full h-11 border-gray-200 text-gray-700 hover:bg-gray-50 font-medium relative"
+            className="cursor-pointer w-full rounded-full h-11 font-medium relative"
           >
-            {/* <Github className="h-5 w-5 absolute left-4 text-gray-900" /> */}
+            <GitHubIcon className="h-5 w-5 absolute left-4" />
             Sign up with GitHub
           </Button>
         </div>
 
-        <div className="mt-8 text-center text-sm text-gray-500">
+        <div className="mt-8 text-center text-sm text-muted-foreground">
           Already have an account?{' '}
-          <Link to="/login" className="font-medium text-gray-900 underline hover:text-gray-700 underline-offset-4">
+          <Link to="/login" className="font-medium text-foreground underline hover:text-muted-foreground underline-offset-4">
             Sign in
           </Link>
         </div>
