@@ -8,38 +8,40 @@ export default function DashboardPage() {
   const { user } = useOutletContext<{ user: AuthUser }>();
   const { data, isLoading, error } = useWorkspaceActivity();
 
-  if (isLoading) return <div className="animate-pulse text-gray-400 p-4">Loading workspace...</div>;
-  if (error) return <div className="text-red-500 p-4">Failed to load activity.</div>;
+  if (isLoading) return <div className="animate-pulse p-4 text-muted-foreground">Loading workspace...</div>;
+  if (error) return <div className="p-4 text-destructive">Failed to load activity.</div>;
 
   return (
     <div className="font-sans pb-8 md:pb-12 animate-in fade-in duration-500">
       {/* Responsive Typography */}
-      <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight mb-8 md:mb-10">
+      <h1 className="mb-8 text-2xl font-extrabold tracking-tight text-foreground sm:text-3xl md:mb-10 md:text-4xl">
         Welcome back, {user?.name || 'Developer'} <span className="inline-block animate-wave">👋</span>
       </h1>
 
       {/* QUICK ACTIONS */}
       <div className="mb-10 md:mb-12">
-        <h2 className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4 px-1 md:px-0">Quick Actions</h2>
+        <h2 className="mb-4 px-1 text-xs font-bold uppercase tracking-widest text-muted-foreground md:px-0">
+          Quick Actions
+        </h2>
 
         <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
           <Button
             variant="outline"
-            className="rounded-xl sm:rounded-full bg-white border border-gray-200 shadow-sm hover:bg-gray-50 hover:text-gray-900 h-12 px-6 w-full sm:w-auto sm:flex-1 sm:max-w-60 text-sm font-medium transition-all"
+            className="h-12 w-full border-border bg-card px-6 text-sm font-medium shadow-sm transition-all hover:bg-muted sm:w-auto sm:max-w-60 sm:flex-1"
           >
-            <Plus className="mr-2 h-4 w-4 text-gray-500" /> New Project
+            <Plus className="mr-2 h-4 w-4 text-muted-foreground" /> New Project
           </Button>
           <Button
             variant="outline"
-            className="rounded-xl sm:rounded-full bg-white border border-gray-200 shadow-sm hover:bg-gray-50 hover:text-gray-900 h-12 px-6 w-full sm:w-auto sm:flex-1 sm:max-w-60 text-sm font-medium transition-all"
+            className="h-12 w-full border-border bg-card px-6 text-sm font-medium shadow-sm transition-all hover:bg-muted sm:w-auto sm:max-w-60 sm:flex-1"
           >
-            <Scissors className="mr-2 h-4 w-4 text-gray-500" /> New Snippet
+            <Scissors className="mr-2 h-4 w-4 text-muted-foreground" /> New Snippet
           </Button>
           <Button
             variant="outline"
-            className="rounded-xl sm:rounded-full bg-white border border-gray-200 shadow-sm hover:bg-gray-50 hover:text-gray-900 h-12 px-6 w-full sm:w-auto sm:flex-1 sm:max-w-60 text-sm font-medium transition-all"
+            className="h-12 w-full border-border bg-card px-6 text-sm font-medium shadow-sm transition-all hover:bg-muted sm:w-auto sm:max-w-60 sm:flex-1"
           >
-            <Cloud className="mr-2 h-4 w-4 text-gray-500" /> Upload Asset
+            <Cloud className="mr-2 h-4 w-4 text-muted-foreground" /> Upload Asset
           </Button>
         </div>
       </div>
@@ -47,21 +49,21 @@ export default function DashboardPage() {
       {/* RECENT PROJECTS */}
       <div className="mb-10 md:mb-12">
         <div className="flex items-center gap-3 md:gap-4 mb-5 md:mb-6">
-          <div className="h-px bg-gray-200 w-8 md:w-12"></div>
-          <h2 className="text-xs font-bold text-gray-500 uppercase tracking-widest whitespace-nowrap">
+          <div className="h-px w-8 bg-border md:w-12"></div>
+          <h2 className="whitespace-nowrap text-xs font-bold uppercase tracking-widest text-muted-foreground">
             Recent Projects
           </h2>
-          <div className="h-px bg-gray-200 flex-1"></div>
+          <div className="h-px flex-1 bg-border"></div>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
           {data?.recentProjects?.length === 0 ? (
-            <p className="text-sm text-gray-400 col-span-full px-1">No recent projects.</p>
+            <p className="col-span-full px-1 text-sm text-muted-foreground">No recent projects.</p>
           ) : (
             data?.recentProjects?.map((project) => (
               <div
                 key={project.id}
-                className="p-4 md:p-5 rounded-2xl border border-gray-200 bg-white shadow-sm hover:shadow-md hover:border-gray-300 transition-all cursor-pointer group flex flex-col"
+                className="group flex cursor-pointer flex-col rounded-[28px] border border-border bg-card p-4 shadow-sm transition-all hover:border-ring hover:shadow-md md:p-5"
               >
                 <div className="flex items-center gap-2 mb-3">
                   <div
@@ -73,11 +75,11 @@ export default function DashboardPage() {
                     {project.status === 'ACTIVE' ? 'Active' : 'Paused'}
                   </span>
                 </div>
-                <h3 className="font-bold text-gray-900 truncate mb-1.5">{project.name}</h3>
-                <p className="text-sm text-gray-500 line-clamp-2 mb-4 md:mb-5 flex-1">
+                <h3 className="mb-1.5 truncate font-bold text-card-foreground">{project.name}</h3>
+                <p className="mb-4 line-clamp-2 flex-1 text-sm text-muted-foreground md:mb-5">
                   {project.description || 'No description provided.'}
                 </p>
-                <div className="text-xs text-gray-400 font-medium">
+                <div className="text-xs font-medium text-muted-foreground">
                   Updated {new Date(project.updatedAt).toLocaleDateString()}
                 </div>
               </div>
@@ -90,34 +92,34 @@ export default function DashboardPage() {
         {/* RECENT SNIPPETS */}
         <div>
           <div className="flex items-center gap-3 md:gap-4 mb-5 md:mb-6">
-            <div className="h-px bg-gray-200 w-8 md:w-12"></div>
-            <h2 className="text-xs font-bold text-gray-500 uppercase tracking-widest whitespace-nowrap">
+            <div className="h-px w-8 bg-border md:w-12"></div>
+            <h2 className="whitespace-nowrap text-xs font-bold uppercase tracking-widest text-muted-foreground">
               Recent Snippets
             </h2>
-            <div className="h-px bg-gray-200 flex-1"></div>
+            <div className="h-px flex-1 bg-border"></div>
           </div>
           <div className="space-y-3">
             {data?.recentSnippets?.length === 0 ? (
-              <p className="text-sm text-gray-400 px-1">No recent snippets.</p>
+              <p className="px-1 text-sm text-muted-foreground">No recent snippets.</p>
             ) : (
               data?.recentSnippets?.map((snippet) => (
                 <div
                   key={snippet.id}
-                  className="p-4 rounded-2xl border border-gray-200 bg-white shadow-sm flex items-center justify-between group hover:border-gray-300 hover:shadow-md transition-all cursor-pointer"
+                  className="group flex cursor-pointer items-center justify-between rounded-[28px] border border-border bg-card p-4 shadow-sm transition-all hover:border-ring hover:shadow-md"
                 >
                   <div className="flex-1 min-w-0 pr-3 md:pr-4">
                     <div className="text-[10px] md:text-xs font-bold text-blue-600 mb-1 md:mb-1.5 uppercase tracking-widest">
                       [{snippet.language}]
                     </div>
-                    <h3 className="font-bold text-gray-900 text-sm md:text-base truncate mb-0.5 md:mb-1">
+                    <h3 className="mb-0.5 truncate text-sm font-bold text-card-foreground md:mb-1 md:text-base">
                       {snippet.title}
                     </h3>
-                    <p className="text-xs md:text-sm text-gray-500 truncate">{snippet.description}</p>
+                    <p className="truncate text-xs text-muted-foreground md:text-sm">{snippet.description}</p>
                   </div>
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="text-gray-400 hover:text-gray-900 hover:bg-gray-100 shrink-0 md:opacity-0 group-hover:opacity-100 transition-opacity"
+                    className="shrink-0 text-muted-foreground transition-opacity hover:bg-muted hover:text-foreground md:opacity-0 group-hover:opacity-100"
                   >
                     <Copy className="h-4 w-4 md:mr-1.5" />
                     <span className="hidden md:inline-block text-xs font-semibold">Copy</span>
@@ -131,32 +133,32 @@ export default function DashboardPage() {
         {/* RECENT UPLOADS */}
         <div>
           <div className="flex items-center gap-3 md:gap-4 mb-5 md:mb-6">
-            <div className="h-px bg-gray-200 w-8 md:w-12"></div>
-            <h2 className="text-xs font-bold text-gray-500 uppercase tracking-widest whitespace-nowrap">
+            <div className="h-px w-8 bg-border md:w-12"></div>
+            <h2 className="whitespace-nowrap text-xs font-bold uppercase tracking-widest text-muted-foreground">
               Recent Uploads
             </h2>
-            <div className="h-px bg-gray-200 flex-1"></div>
+            <div className="h-px flex-1 bg-border"></div>
           </div>
           {/* Mobile: 1 col, Tablet/Desktop: 2 cols */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {data?.recentUploads?.length === 0 ? (
-              <p className="text-sm text-gray-400 col-span-full px-1">No recent files.</p>
+              <p className="col-span-full px-1 text-sm text-muted-foreground">No recent files.</p>
             ) : (
               data?.recentUploads?.map((file) => (
                 <div
                   key={file.id}
-                  className="p-3 md:p-3.5 rounded-2xl border border-gray-200 bg-white shadow-sm flex items-center gap-3 hover:border-gray-300 hover:shadow-md transition-all cursor-pointer group"
+                  className="group flex cursor-pointer items-center gap-3 rounded-[28px] border border-border bg-card p-3 shadow-sm transition-all hover:border-ring hover:shadow-md md:p-3.5"
                 >
-                  <div className="h-10 w-10 md:h-12 md:w-12 rounded-xl bg-gray-50 border border-gray-100 flex items-center justify-center shrink-0 group-hover:bg-gray-100 transition-colors">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl border border-border bg-muted transition-colors group-hover:bg-accent md:h-12 md:w-12">
                     {file.fileType.includes('image') ? (
-                      <Image className="h-4 w-4 md:h-5 md:w-5 text-gray-500" />
+                      <Image className="h-4 w-4 text-muted-foreground md:h-5 md:w-5" />
                     ) : (
-                      <FileText className="h-4 w-4 md:h-5 md:w-5 text-gray-500" />
+                      <FileText className="h-4 w-4 text-muted-foreground md:h-5 md:w-5" />
                     )}
                   </div>
                   <div className="min-w-0 flex-1">
-                    <p className="text-sm font-bold text-gray-900 truncate mb-0.5">{file.name}</p>
-                    <p className="text-[10px] md:text-xs text-gray-400 font-medium uppercase tracking-widest">
+                    <p className="mb-0.5 truncate text-sm font-bold text-card-foreground">{file.name}</p>
+                    <p className="text-[10px] font-medium uppercase tracking-widest text-muted-foreground md:text-xs">
                       {(file.size / 1024).toFixed(0)} KB
                     </p>
                   </div>

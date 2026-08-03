@@ -27,11 +27,11 @@ export function Sidebar({ user, onClose }: SidebarProps) {
   ];
 
   return (
-    <aside className="w-full border-r border-gray-200 bg-gray-50/50 flex flex-col h-screen font-sans">
+    <aside className="flex h-screen w-full flex-col border-r border-sidebar-border bg-sidebar font-sans text-sidebar-foreground">
       <div className="hidden md:flex h-16 items-center px-6 mb-4 shrink-0">
         <Link to="/dashboard" className="flex items-center gap-2">
-          <Triangle className="h-6 w-6 fill-gray-900 text-gray-900" />
-          <span className="text-lg font-bold tracking-tight text-gray-900">DevFlow</span>
+          <Triangle className="h-6 w-6 fill-sidebar-foreground text-sidebar-foreground" />
+          <span className="text-lg font-bold tracking-tight text-sidebar-foreground">DevFlow</span>
         </Link>
       </div>
 
@@ -45,30 +45,30 @@ export function Sidebar({ user, onClose }: SidebarProps) {
               onClick={onClose}
               className={`flex items-center gap-3 px-3 py-3 md:py-2.5 rounded-xl text-sm font-medium transition-colors ${
                 isActive
-                  ? 'bg-white text-gray-900 shadow-sm border border-gray-200'
-                  : 'text-gray-500 hover:text-gray-900 hover:bg-gray-100/50'
+                  ? 'border border-sidebar-border bg-background text-foreground shadow-sm'
+                  : 'text-muted-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground'
               }`}
             >
-              <item.icon className={`h-5 w-5 md:h-4 md:w-4 ${isActive ? 'text-gray-900' : 'text-gray-400'}`} />
+              <item.icon className={`h-5 w-5 md:h-4 md:w-4 ${isActive ? 'text-foreground' : 'text-muted-foreground'}`} />
               {item.name}
             </Link>
           );
         })}
       </nav>
 
-      <div className="p-4 border-t border-gray-200 shrink-0 bg-white md:bg-transparent">
+      <div className="shrink-0 border-t border-sidebar-border bg-background p-4 md:bg-transparent">
         <div className="flex items-center justify-between px-2">
           <div className="flex items-center gap-3 min-w-0">
-            <div className="h-8 w-8 rounded-full bg-linear-to-tr from-gray-200 to-gray-300 border border-gray-300 overflow-hidden shrink-0">
+            <div className="h-8 w-8 shrink-0 overflow-hidden rounded-full border border-border bg-muted">
               {user.image && <img src={user.image} alt={user.name} className="h-full w-full object-cover" />}
             </div>
-            <span className="text-sm font-medium text-gray-700 truncate">{user?.name || 'Developer'}</span>
+            <span className="truncate text-sm font-medium text-foreground">{user?.name || 'Developer'}</span>
           </div>
           <Button
             variant="ghost"
             size="icon"
             onClick={handleLogout}
-            className="h-8 w-8 text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded-full shrink-0"
+            className="h-8 w-8 shrink-0 rounded-full text-muted-foreground hover:bg-muted hover:text-foreground"
             title="Logout"
           >
             <LogOut className="h-4 w-4" />

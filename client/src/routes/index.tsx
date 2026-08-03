@@ -4,6 +4,7 @@ import RegisterPage from '@/pages/Register';
 import LoginPage from '@/pages/Login';
 import ForgotPasswordPage from '@/pages/ForgotPassword';
 import DashboardPage from '@/pages/Dashboard';
+import SettingsPage from '@/pages/Settings';
 import { AuthGuard } from '@/components/auth/auth-guard';
 import { AppLayout } from '@/components/layout/AppLayout';
 export const router = createBrowserRouter([
@@ -50,7 +51,7 @@ export const router = createBrowserRouter([
           },
           {
             path: '/settings',
-            element: <div>Settings (Protected)</div>,
+            element: <SettingsPage />,
           },
         ],
       },
