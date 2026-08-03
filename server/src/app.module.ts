@@ -8,12 +8,14 @@ import { AuthModule } from '@thallesp/nestjs-better-auth';
 import { auth } from './auth/auth';
 import { WorkspaceService } from './workspace/workspace.service';
 import { WorkspaceController } from './workspace/workspace.controller';
+import { SettingsModule } from './settings/settings.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     PrismaModule,
     AuthModule.forRoot({ auth }),
+    SettingsModule,
   ],
   controllers: [AppController, WorkspaceController],
   providers: [AppService, WorkspaceService],
