@@ -1,4 +1,4 @@
-import { useOutletContext } from 'react-router-dom';
+import { Link, useOutletContext } from 'react-router-dom';
 import { useWorkspaceActivity } from '@/hooks/use-workspace';
 import type { AuthUser } from '@/components/layout/AppLayout';
 import { Button } from '@/components/ui/button';
@@ -25,12 +25,12 @@ export default function DashboardPage() {
         </h2>
 
         <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
-          <Button
-            variant="outline"
-            className="h-12 w-full border-border bg-card px-6 text-sm font-medium shadow-sm transition-all hover:bg-muted sm:w-auto sm:max-w-60 sm:flex-1"
+          <Link
+            to="/projects"
+            className="inline-flex h-12 w-full shrink-0 items-center justify-center rounded-full border border-border bg-card px-6 text-sm font-medium shadow-sm transition-all hover:bg-muted sm:w-auto sm:max-w-60 sm:flex-1"
           >
             <Plus className="mr-2 h-4 w-4 text-muted-foreground" /> New Project
-          </Button>
+          </Link>
           <Button
             variant="outline"
             className="h-12 w-full border-border bg-card px-6 text-sm font-medium shadow-sm transition-all hover:bg-muted sm:w-auto sm:max-w-60 sm:flex-1"
@@ -61,8 +61,9 @@ export default function DashboardPage() {
             <p className="col-span-full px-1 text-sm text-muted-foreground">No recent projects.</p>
           ) : (
             data?.recentProjects?.map((project) => (
-              <div
+              <Link
                 key={project.id}
+                to={`/projects/${project.id}`}
                 className="group flex cursor-pointer flex-col rounded-[28px] border border-border bg-card p-4 shadow-sm transition-all hover:border-ring hover:shadow-md md:p-5"
               >
                 <div className="flex items-center gap-2 mb-3">
@@ -82,7 +83,7 @@ export default function DashboardPage() {
                 <div className="text-xs font-medium text-muted-foreground">
                   Updated {new Date(project.updatedAt).toLocaleDateString()}
                 </div>
-              </div>
+              </Link>
             ))
           )}
         </div>

@@ -54,6 +54,17 @@ export class ProjectsController {
     return this.projectsService.updateDocumentation(user.id, projectId, body);
   }
 
+  @Post(':id/cover/signature')
+  createExistingProjectCoverUploadSignature(
+    @CurrentUser() user: User,
+    @Param('id') projectId: string,
+  ) {
+    return this.projectsService.createProjectCoverUploadSignature(
+      user.id,
+      projectId,
+    );
+  }
+
   @Put(':id/archive')
   archiveProject(@CurrentUser() user: User, @Param('id') projectId: string) {
     return this.projectsService.archiveProject(user.id, projectId);
