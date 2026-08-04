@@ -9,6 +9,7 @@ import { auth } from './auth/auth';
 import { WorkspaceService } from './workspace/workspace.service';
 import { WorkspaceController } from './workspace/workspace.controller';
 import { SettingsModule } from './settings/settings.module';
+import { ProjectsModule } from './projects/projects.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { SettingsModule } from './settings/settings.module';
     PrismaModule,
     AuthModule.forRoot({ auth }),
     SettingsModule,
+    ProjectsModule,
   ],
   controllers: [AppController, WorkspaceController],
   providers: [AppService, WorkspaceService],
