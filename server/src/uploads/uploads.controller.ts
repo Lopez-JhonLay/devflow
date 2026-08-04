@@ -14,10 +14,12 @@ export class UploadsController {
     @CurrentUser() user: User,
     @Query('folder') folder?: string,
     @Query('publicId') publicId?: string,
+    @Query('resourceType') resourceType?: string,
   ) {
     return this.uploadsService.createUploadSignature(user.id, {
       folder,
       publicId,
+      resourceType,
     });
   }
 }

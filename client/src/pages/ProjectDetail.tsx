@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { ArrowLeft, Edit3, ExternalLink, FileText, GitBranch, ImageOff, Loader2, Save, X } from 'lucide-react';
+import { AssetUpload } from '@/components/projects/AssetUpload';
 import { MarkdownEditor } from '@/components/projects/MarkdownEditor';
 import { CoverUploadField } from '@/components/shared/CoverUploadField';
 import { StatusSelect } from '@/components/shared/StatusSelect';
@@ -314,6 +315,8 @@ export default function ProjectDetailPage() {
               </div>
             </CardContent>
           </Card>
+
+          <AssetUpload projectId={project.id} files={project.files ?? []} />
         </div>
       </div>
 
