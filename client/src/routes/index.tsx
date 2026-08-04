@@ -4,6 +4,8 @@ import RegisterPage from '@/pages/Register';
 import LoginPage from '@/pages/Login';
 import ForgotPasswordPage from '@/pages/ForgotPassword';
 import DashboardPage from '@/pages/Dashboard';
+import ProjectDetailPage from '@/pages/ProjectDetail';
+import ProjectsPage from '@/pages/Projects';
 import SettingsPage from '@/pages/Settings';
 import { AuthGuard } from '@/components/auth/auth-guard';
 import { AppLayout } from '@/components/layout/AppLayout';
@@ -39,11 +41,11 @@ export const router = createBrowserRouter([
           },
           {
             path: '/projects',
-            element: <div>Projects (Protected)</div>,
+            element: <ProjectsPage />,
           },
           {
             path: '/projects/:id',
-            element: <div>Project Documentation (Protected)</div>,
+            element: <ProjectDetailPage />,
           },
           {
             path: '/snippets',

@@ -1,8 +1,10 @@
 import {
   BadRequestException,
   Injectable,
+  InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common';
+import { createHash } from 'node:crypto';
 import { PrismaService } from '@/prisma/prisma.service';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateDocumentationDto } from './dto/update-documentation.dto';
@@ -11,6 +13,8 @@ import { UpdateProjectDto } from './dto/update-project.dto';
 const PROJECT_STATUSES = ['ACTIVE', 'PAUSED', 'ARCHIVED'] as const;
 const MAX_TAGS = 10;
 const MAX_DOCUMENTATION_LENGTH = 200_000;
+const COVER_MAX_FILE_SIZE = 10 * 1024 * 1024;
+const COVER_ALLOWED_FORMATS = ['png', 'jpg', 'jpeg', 'webp'];
 
 type ProjectStatus = (typeof PROJECT_STATUSES)[number];
 
@@ -83,6 +87,46 @@ export class ProjectsService {
     };
   }
 
+  async createProjectCoverUploadSignature(userId: string, projectId: string) {
+    this.validateProjectId(projectId);
+    await this.ensureProjectOwnership(userId, projectId);
+
+    const cloudName = process.env.CLOUDINARY_CLOUD_NAME;
+    const apiKey = process.env.CLOUDINARY_API_KEY;
+    const apiSecret = process.env.CLOUDINARY_API_SECRET;
+
+    if (!cloudName || !apiKey || !apiSecret) {
+      throw new InternalServerErrorException(
+        'Cloudinary environment variables are not configured.',
+      );
+    }
+
+    const timestamp = Math.round(Date.now() / 1000);
+    const publicId = `devflow/project-covers/${userId}/${projectId}`;
+    const uploadParams = {
+      invalidate: true,
+      overwrite: true,
+      public_id: publicId,
+      timestamp,
+    };
+
+    return {
+      success: true,
+      data: {
+        cloudName,
+        apiKey,
+        timestamp,
+        publicId,
+        invalidate: true,
+        overwrite: true,
+        signature: this.signCloudinaryParams(uploadParams, apiSecret),
+        uploadUrl: `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
+        maxFileSize: COVER_MAX_FILE_SIZE,
+        allowedFormats: COVER_ALLOWED_FORMATS,
+      },
+    };
+  }
+
   async updateProject(
     userId: string,
     projectId: string,
@@ -90,7 +134,10 @@ export class ProjectsService {
   ) {
     this.validateProjectId(projectId);
 
-    await this.ensureProjectOwnership(userId, projectId);
+    const existingProject = await this.ensureProjectOwnership(
+      userId,
+      projectId,
+    );
 
     const data = this.validateUpdateProjectInput(dto ?? {});
     const hasTagUpdate = dto?.tags !== undefined;
@@ -98,6 +145,10 @@ export class ProjectsService {
 
     if (Object.keys(data).length === 0 && !hasTagUpdate) {
       throw new BadRequestException('At least one project field is required.');
+    }
+
+    if (data.coverImage === null && existingProject.coverImage) {
+      await this.deleteProjectCoverFromCloudinary(userId, projectId);
     }
 
     const project = await this.prisma.$transaction(async (tx) => {
@@ -240,7 +291,11 @@ export class ProjectsService {
   async deleteProject(userId: string, projectId: string) {
     this.validateProjectId(projectId);
 
-    await this.ensureProjectOwnership(userId, projectId);
+    const project = await this.ensureProjectOwnership(userId, projectId);
+
+    if (project.coverImage) {
+      await this.deleteProjectCoverFromCloudinary(userId, projectId);
+    }
 
     await this.prisma.project.delete({
       where: { id: projectId },
@@ -364,7 +419,10 @@ export class ProjectsService {
         id: projectId,
         userId,
       },
-      select: { id: true },
+      select: {
+        id: true,
+        coverImage: true,
+      },
     });
 
     if (!project) {
@@ -544,6 +602,75 @@ export class ProjectsService {
     }
 
     return trimmed;
+  }
+
+  private signCloudinaryParams(
+    params: Record<string, string | number | boolean>,
+    apiSecret: string,
+  ) {
+    const serializedParams = Object.keys(params)
+      .sort()
+      .map((key) => `${key}=${params[key]}`)
+      .join('&');
+
+    return createHash('sha1')
+      .update(`${serializedParams}${apiSecret}`)
+      .digest('hex');
+  }
+
+  private async deleteProjectCoverFromCloudinary(
+    userId: string,
+    projectId: string,
+  ) {
+    const cloudName = process.env.CLOUDINARY_CLOUD_NAME;
+    const apiKey = process.env.CLOUDINARY_API_KEY;
+    const apiSecret = process.env.CLOUDINARY_API_SECRET;
+
+    if (!cloudName || !apiKey || !apiSecret) {
+      throw new InternalServerErrorException(
+        'Cloudinary environment variables are not configured.',
+      );
+    }
+
+    const timestamp = Math.round(Date.now() / 1000);
+    const publicId = `devflow/project-covers/${userId}/${projectId}`;
+    const destroyParams = {
+      invalidate: true,
+      public_id: publicId,
+      timestamp,
+    };
+    const body = new URLSearchParams({
+      api_key: apiKey,
+      invalidate: 'true',
+      public_id: publicId,
+      timestamp: String(timestamp),
+      signature: this.signCloudinaryParams(destroyParams, apiSecret),
+    });
+
+    const response = await fetch(
+      `https://api.cloudinary.com/v1_1/${cloudName}/image/destroy`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body,
+      },
+    );
+
+    if (!response.ok) {
+      throw new InternalServerErrorException(
+        'Failed to delete cover image from Cloudinary.',
+      );
+    }
+
+    const result = (await response.json()) as { result?: string };
+
+    if (result.result && !['ok', 'not found'].includes(result.result)) {
+      throw new InternalServerErrorException(
+        'Failed to delete cover image from Cloudinary.',
+      );
+    }
   }
 
   private normalizeTags(tags: string[] | undefined) {
