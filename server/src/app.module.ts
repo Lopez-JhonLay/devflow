@@ -10,6 +10,7 @@ import { WorkspaceService } from './workspace/workspace.service';
 import { WorkspaceController } from './workspace/workspace.controller';
 import { SettingsModule } from './settings/settings.module';
 import { ProjectsModule } from './projects/projects.module';
+import { UploadsModule } from './uploads/uploads.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { ProjectsModule } from './projects/projects.module';
     AuthModule.forRoot({ auth }),
     SettingsModule,
     ProjectsModule,
+    UploadsModule,
   ],
   controllers: [AppController, WorkspaceController],
   providers: [AppService, WorkspaceService],
