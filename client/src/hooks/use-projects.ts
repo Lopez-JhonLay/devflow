@@ -62,6 +62,10 @@ export type CoverSignature = {
   allowedFormats: string[];
 };
 
+export type DocumentationPayload = {
+  content: string;
+};
+
 type ApiResponse<T> = {
   success: boolean;
   data: T;
@@ -145,6 +149,31 @@ export function useArchiveProject(projectId: string) {
     onSuccess: (project) => {
       queryClient.invalidateQueries({ queryKey: projectKeys.all });
       queryClient.setQueryData(projectKeys.detail(project.id), project);
+    },
+  });
+}
+
+export function useUpdateProjectDocumentation(projectId: string) {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (content: string) => {
+      const payload: DocumentationPayload = { content };
+      const response = (await apiFetch(`/projects/${projectId}/documentation`, {
+        method: 'PUT',
+        body: JSON.stringify(payload),
+      })) as ApiResponse<Documentation>;
+      return response.data;
+    },
+    onSuccess: (documentation) => {
+      queryClient.setQueryData<Project | undefined>(projectKeys.detail(projectId), (project) => {
+        if (!project) return project;
+
+        return {
+          ...project,
+          documentation,
+        };
+      });
     },
   });
 }

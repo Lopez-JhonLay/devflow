@@ -3,7 +3,8 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { Archive, ArrowLeft, Edit3, ExternalLink, GitBranch, ImageOff, Loader2, Save, X } from 'lucide-react';
+import { ArrowLeft, Edit3, ExternalLink, FileText, GitBranch, ImageOff, Loader2, Save, X } from 'lucide-react';
+import { MarkdownEditor } from '@/components/projects/MarkdownEditor';
 import { CoverUploadField } from '@/components/shared/CoverUploadField';
 import { StatusSelect } from '@/components/shared/StatusSelect';
 import { Button } from '@/components/ui/button';
@@ -13,7 +14,6 @@ import { Label } from '@/components/ui/label';
 import {
   getProjectCoverSignature,
   uploadProjectCover,
-  useArchiveProject,
   useProject,
   useUpdateProject,
   type ProjectPayload,
@@ -72,10 +72,10 @@ export default function ProjectDetailPage() {
   const navigate = useNavigate();
   const { data: project, isLoading, error } = useProject(id);
   const updateProject = useUpdateProject(id ?? '');
-  const archiveProject = useArchiveProject(id ?? '');
   const [formMessage, setFormMessage] = useState('');
   const [formError, setFormError] = useState('');
   const [isEditOpen, setIsEditOpen] = useState(false);
+  const [isDocumentationOpen, setIsDocumentationOpen] = useState(false);
   const [coverFile, setCoverFile] = useState<File | null>(null);
   const [coverPreviewUrl, setCoverPreviewUrl] = useState('');
   const [coverError, setCoverError] = useState('');
@@ -163,19 +163,6 @@ export default function ProjectDetailPage() {
     }
   }
 
-  async function handleArchive() {
-    if (!id) return;
-    setFormMessage('');
-    setFormError('');
-
-    try {
-      await archiveProject.mutateAsync();
-      setFormMessage('Project archived.');
-    } catch (err) {
-      setFormError(err instanceof Error ? err.message : 'Failed to archive project.');
-    }
-  }
-
   function handleCoverSelect(file: File | undefined) {
     setCoverError('');
 
@@ -254,15 +241,6 @@ export default function ProjectDetailPage() {
             <Edit3 />
             Edit
           </Button>
-          <Button
-            type="button"
-            variant="outline"
-            disabled={project.status === 'ARCHIVED' || archiveProject.isPending}
-            onClick={() => void handleArchive()}
-          >
-            {archiveProject.isPending ? <Loader2 className="animate-spin" /> : <Archive />}
-            Archive
-          </Button>
         </div>
       </div>
 
@@ -284,8 +262,16 @@ export default function ProjectDetailPage() {
 
           <Card className="border border-border shadow-sm">
             <CardHeader className="border-b border-border">
-              <CardTitle>Overview</CardTitle>
-              <CardDescription>Project details used across your workspace.</CardDescription>
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                <div>
+                  <CardTitle>Overview</CardTitle>
+                  <CardDescription>Project details used across your workspace.</CardDescription>
+                </div>
+                <Button type="button" variant="outline" onClick={() => setIsDocumentationOpen(true)}>
+                  <FileText />
+                  Open docs
+                </Button>
+              </div>
             </CardHeader>
             <CardContent className="grid gap-4 sm:grid-cols-2">
               <InfoRow label="Repository" value={project.repositoryUrl || 'Not set'} />
@@ -410,6 +396,30 @@ export default function ProjectDetailPage() {
               </form>
             </CardContent>
           </Card>
+        </div>
+      )}
+
+      {isDocumentationOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 p-4 backdrop-blur-sm">
+          <div className="scrollbar-hidden max-h-[92vh] w-full max-w-6xl overflow-y-auto rounded-[32px] border border-border bg-card shadow-2xl">
+            <div className="flex items-start justify-between gap-4 border-b border-border p-5">
+              <div>
+                <h2 className="text-xl font-bold text-foreground">Documentation</h2>
+                <p className="mt-1 text-sm text-muted-foreground">{project.name}</p>
+              </div>
+              <Button type="button" variant="ghost" size="icon" onClick={() => setIsDocumentationOpen(false)}>
+                <X />
+              </Button>
+            </div>
+            <div className="p-5">
+              <MarkdownEditor
+                key={project.id}
+                projectId={project.id}
+                initialContent={project.documentation?.content ?? ''}
+                variant="plain"
+              />
+            </div>
+          </div>
         </div>
       )}
     </div>
