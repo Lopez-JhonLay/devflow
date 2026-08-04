@@ -6,6 +6,7 @@ import {
 } from '@nestjs/common';
 import { createHash } from 'node:crypto';
 import { PrismaService } from '@/prisma/prisma.service';
+import { CreateProjectFileDto } from './dto/create-project-file.dto';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateDocumentationDto } from './dto/update-documentation.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
@@ -15,6 +16,9 @@ const MAX_TAGS = 10;
 const MAX_DOCUMENTATION_LENGTH = 200_000;
 const COVER_MAX_FILE_SIZE = 10 * 1024 * 1024;
 const COVER_ALLOWED_FORMATS = ['png', 'jpg', 'jpeg', 'webp'];
+const PROJECT_FILE_MAX_SIZE = 10 * 1024 * 1024;
+const PROJECT_FILE_MAX_NAME_LENGTH = 160;
+const PROJECT_FILE_MAX_TYPE_LENGTH = 120;
 
 type ProjectStatus = (typeof PROJECT_STATUSES)[number];
 
@@ -288,6 +292,61 @@ export class ProjectsService {
     };
   }
 
+  async createProjectFile(
+    userId: string,
+    projectId: string,
+    dto: CreateProjectFileDto,
+  ) {
+    this.validateProjectId(projectId);
+    await this.ensureProjectOwnership(userId, projectId);
+
+    const data = this.validateProjectFileInput(userId, dto ?? {});
+
+    const file = await this.prisma.projectFile.create({
+      data: {
+        projectId,
+        url: data.url,
+        publicId: data.publicId,
+        name: data.name,
+        fileType: data.fileType,
+        size: data.size,
+      },
+    });
+
+    return {
+      success: true,
+      data: file,
+    };
+  }
+
+  async deleteProjectFile(userId: string, projectId: string, fileId: string) {
+    this.validateProjectId(projectId);
+    this.validateFileId(fileId);
+    await this.ensureProjectOwnership(userId, projectId);
+
+    const file = await this.prisma.projectFile.findFirst({
+      where: {
+        id: fileId,
+        projectId,
+      },
+    });
+
+    if (!file) {
+      throw new NotFoundException('Project file not found.');
+    }
+
+    await this.deleteUploadedFileFromCloudinary(file.publicId);
+
+    await this.prisma.projectFile.delete({
+      where: { id: fileId },
+    });
+
+    return {
+      success: true,
+      message: 'Project file deleted successfully.',
+    };
+  }
+
   async deleteProject(userId: string, projectId: string) {
     this.validateProjectId(projectId);
 
@@ -296,6 +355,15 @@ export class ProjectsService {
     if (project.coverImage) {
       await this.deleteProjectCoverFromCloudinary(userId, projectId);
     }
+
+    const files = await this.prisma.projectFile.findMany({
+      where: { projectId },
+      select: { publicId: true },
+    });
+
+    await Promise.all(
+      files.map((file) => this.deleteUploadedFileFromCloudinary(file.publicId)),
+    );
 
     await this.prisma.project.delete({
       where: { id: projectId },
@@ -396,6 +464,12 @@ export class ProjectsService {
   private validateProjectId(projectId: string) {
     if (typeof projectId !== 'string' || projectId.trim().length === 0) {
       throw new BadRequestException('Project id is required.');
+    }
+  }
+
+  private validateFileId(fileId: string) {
+    if (typeof fileId !== 'string' || fileId.trim().length === 0) {
+      throw new BadRequestException('File id is required.');
     }
   }
 
@@ -530,6 +604,113 @@ export class ProjectsService {
     }
 
     return data;
+  }
+
+  private validateProjectFileInput(
+    userId: string,
+    dto: Partial<CreateProjectFileDto>,
+  ) {
+    if (typeof dto.url !== 'string') {
+      throw new BadRequestException('File URL is required.');
+    }
+
+    let url: URL;
+
+    try {
+      url = new URL(dto.url.trim());
+    } catch {
+      throw new BadRequestException('File URL must be a valid URL.');
+    }
+
+    this.validateCloudinaryFileUrl(userId, url);
+
+    if (typeof dto.publicId !== 'string') {
+      throw new BadRequestException('File public id is required.');
+    }
+
+    const publicId = dto.publicId.trim();
+    const allowedPublicIdPrefix = `devflow/uploads/${userId}/`;
+
+    if (!publicId.startsWith(allowedPublicIdPrefix)) {
+      throw new BadRequestException(
+        'File public id must belong to the current user upload folder.',
+      );
+    }
+
+    if (typeof dto.name !== 'string') {
+      throw new BadRequestException('File name is required.');
+    }
+
+    const name = dto.name.trim();
+
+    if (name.length < 1) {
+      throw new BadRequestException('File name is required.');
+    }
+
+    if (name.length > PROJECT_FILE_MAX_NAME_LENGTH) {
+      throw new BadRequestException(
+        `File name cannot exceed ${PROJECT_FILE_MAX_NAME_LENGTH} characters.`,
+      );
+    }
+
+    if (typeof dto.fileType !== 'string') {
+      throw new BadRequestException('File type is required.');
+    }
+
+    const fileType = dto.fileType.trim().toLowerCase();
+
+    if (fileType.length < 1) {
+      throw new BadRequestException('File type is required.');
+    }
+
+    if (fileType.length > PROJECT_FILE_MAX_TYPE_LENGTH) {
+      throw new BadRequestException(
+        `File type cannot exceed ${PROJECT_FILE_MAX_TYPE_LENGTH} characters.`,
+      );
+    }
+
+    if (!Number.isInteger(dto.size)) {
+      throw new BadRequestException('File size must be an integer.');
+    }
+
+    const size = Number(dto.size);
+
+    if (size < 1) {
+      throw new BadRequestException('File size must be greater than zero.');
+    }
+
+    if (size > PROJECT_FILE_MAX_SIZE) {
+      throw new BadRequestException('File size cannot exceed 10 MB.');
+    }
+
+    return {
+      url: url.toString(),
+      publicId,
+      name,
+      fileType,
+      size,
+    };
+  }
+
+  private validateCloudinaryFileUrl(userId: string, url: URL) {
+    const cloudName = process.env.CLOUDINARY_CLOUD_NAME;
+
+    if (!cloudName) {
+      throw new InternalServerErrorException(
+        'Cloudinary environment variables are not configured.',
+      );
+    }
+
+    if (
+      url.protocol !== 'https:' ||
+      url.hostname !== 'res.cloudinary.com' ||
+      !url.pathname.startsWith(`/${cloudName}/`) ||
+      !url.pathname.includes(`/devflow/uploads/${userId}/`)
+    ) {
+      throw new BadRequestException(
+        'File URL must come from the current user upload folder.',
+      );
+    }
   }
 
   private validateStatus(status: string | undefined): ProjectStatus {
@@ -669,6 +850,70 @@ export class ProjectsService {
     if (result.result && !['ok', 'not found'].includes(result.result)) {
       throw new InternalServerErrorException(
         'Failed to delete cover image from Cloudinary.',
+      );
+    }
+  }
+
+  private async deleteUploadedFileFromCloudinary(publicId: string) {
+    const cloudName = process.env.CLOUDINARY_CLOUD_NAME;
+    const apiKey = process.env.CLOUDINARY_API_KEY;
+    const apiSecret = process.env.CLOUDINARY_API_SECRET;
+
+    if (!cloudName || !apiKey || !apiSecret) {
+      throw new InternalServerErrorException(
+        'Cloudinary environment variables are not configured.',
+      );
+    }
+
+    const resourceTypes = ['image', 'raw', 'video'];
+    let receivedCloudinaryResponse = false;
+    let onlyNotFoundResponses = true;
+
+    for (const resourceType of resourceTypes) {
+      const timestamp = Math.round(Date.now() / 1000);
+      const destroyParams = {
+        invalidate: true,
+        public_id: publicId,
+        timestamp,
+      };
+      const body = new URLSearchParams({
+        api_key: apiKey,
+        invalidate: 'true',
+        public_id: publicId,
+        timestamp: String(timestamp),
+        signature: this.signCloudinaryParams(destroyParams, apiSecret),
+      });
+
+      const response = await fetch(
+        `https://api.cloudinary.com/v1_1/${cloudName}/${resourceType}/destroy`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body,
+        },
+      );
+
+      if (!response.ok) {
+        continue;
+      }
+
+      receivedCloudinaryResponse = true;
+      const result = (await response.json()) as { result?: string };
+
+      if (result.result === 'ok') {
+        return;
+      }
+
+      if (result.result !== 'not found') {
+        onlyNotFoundResponses = false;
+      }
+    }
+
+    if (!receivedCloudinaryResponse || !onlyNotFoundResponses) {
+      throw new InternalServerErrorException(
+        'Failed to delete uploaded file from Cloudinary.',
       );
     }
   }
