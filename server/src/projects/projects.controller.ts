@@ -11,6 +11,7 @@ import {
 import { type User } from '@prisma/client';
 import { CurrentUser } from '@/auth/decorators/current-user-decorator';
 import { SessionGuard } from '@/auth/guards/guard';
+import { CreateProjectFileDto } from './dto/create-project-file.dto';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateDocumentationDto } from './dto/update-documentation.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
@@ -52,6 +53,24 @@ export class ProjectsController {
     @Body() body: UpdateDocumentationDto,
   ) {
     return this.projectsService.updateDocumentation(user.id, projectId, body);
+  }
+
+  @Post(':id/files')
+  createProjectFile(
+    @CurrentUser() user: User,
+    @Param('id') projectId: string,
+    @Body() body: CreateProjectFileDto,
+  ) {
+    return this.projectsService.createProjectFile(user.id, projectId, body);
+  }
+
+  @Delete(':id/files/:fileId')
+  deleteProjectFile(
+    @CurrentUser() user: User,
+    @Param('id') projectId: string,
+    @Param('fileId') fileId: string,
+  ) {
+    return this.projectsService.deleteProjectFile(user.id, projectId, fileId);
   }
 
   @Post(':id/cover/signature')
