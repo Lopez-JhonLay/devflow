@@ -53,6 +53,12 @@ export class SnippetsService {
                   },
                 },
                 {
+                  language: {
+                    contains: search,
+                    mode: 'insensitive',
+                  },
+                },
+                {
                   tags: {
                     some: {
                       tag: {
@@ -355,9 +361,9 @@ export class SnippetsService {
       throw new BadRequestException('Snippet code is required.');
     }
 
-    const code = dto.code.trim();
+    const code = dto.code;
 
-    if (code.length < 1) {
+    if (code.trim().length < 1) {
       throw new BadRequestException('Snippet code is required.');
     }
 
@@ -442,9 +448,9 @@ export class SnippetsService {
         throw new BadRequestException('Snippet code must be a string.');
       }
 
-      const code = dto.code.trim();
+      const code = dto.code;
 
-      if (code.length < 1) {
+      if (code.trim().length < 1) {
         throw new BadRequestException('Snippet code is required.');
       }
 
