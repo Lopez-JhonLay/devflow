@@ -62,8 +62,31 @@ export type CoverSignature = {
   allowedFormats: string[];
 };
 
+export type UploadSignature = {
+  cloudName: string;
+  apiKey: string;
+  timestamp: number;
+  publicId: string;
+  folder: string;
+  resourceType: string;
+  overwrite: boolean;
+  invalidate: boolean;
+  signature: string;
+  uploadUrl: string;
+  maxFileSize: number;
+  allowedFormats: string[];
+};
+
 export type DocumentationPayload = {
   content: string;
+};
+
+export type ProjectFilePayload = {
+  url: string;
+  publicId: string;
+  name: string;
+  fileType: string;
+  size: number;
 };
 
 type ApiResponse<T> = {
@@ -219,4 +242,68 @@ export async function updateProjectCover(projectId: string, coverImage: string |
     body: JSON.stringify({ coverImage }),
   })) as ApiResponse<Project>;
   return response.data;
+}
+
+export async function getUploadSignature(folder = 'assets', publicId?: string, resourceType?: string) {
+  const searchParams = new URLSearchParams({ folder });
+
+  if (publicId) {
+    searchParams.set('publicId', publicId);
+  }
+
+  if (resourceType) {
+    searchParams.set('resourceType', resourceType);
+  }
+
+  const response = (await apiFetch(`/uploads/sign?${searchParams.toString()}`, {
+    method: 'GET',
+  })) as ApiResponse<UploadSignature>;
+  return response.data;
+}
+
+export function useCreateProjectFile(projectId: string) {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (payload: ProjectFilePayload) => {
+      const response = (await apiFetch(`/projects/${projectId}/files`, {
+        method: 'POST',
+        body: JSON.stringify(payload),
+      })) as ApiResponse<ProjectFile>;
+      return response.data;
+    },
+    onSuccess: (file) => {
+      queryClient.setQueryData<Project | undefined>(projectKeys.detail(projectId), (project) => {
+        if (!project) return project;
+
+        return {
+          ...project,
+          files: [file, ...(project.files ?? [])],
+        };
+      });
+    },
+  });
+}
+
+export function useDeleteProjectFile(projectId: string) {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (fileId: string) => {
+      await apiFetch(`/projects/${projectId}/files/${fileId}`, {
+        method: 'DELETE',
+      });
+      return fileId;
+    },
+    onSuccess: (fileId) => {
+      queryClient.setQueryData<Project | undefined>(projectKeys.detail(projectId), (project) => {
+        if (!project) return project;
+
+        return {
+          ...project,
+          files: project.files?.filter((file) => file.id !== fileId) ?? [],
+        };
+      });
+    },
+  });
 }
