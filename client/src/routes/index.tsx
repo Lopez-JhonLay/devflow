@@ -7,6 +7,7 @@ import DashboardPage from '@/pages/Dashboard';
 import ProjectDetailPage from '@/pages/ProjectDetail';
 import ProjectsPage from '@/pages/Projects';
 import SettingsPage from '@/pages/Settings';
+import SnippetsPage from '@/pages/Snippets';
 import { AuthGuard } from '@/components/auth/auth-guard';
 import { AppLayout } from '@/components/layout/AppLayout';
 export const router = createBrowserRouter([
@@ -49,7 +50,7 @@ export const router = createBrowserRouter([
           },
           {
             path: '/snippets',
-            element: <div>Snippets (Protected)</div>,
+            element: <SnippetsPage />,
           },
           {
             path: '/settings',
