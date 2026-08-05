@@ -11,6 +11,7 @@ import { WorkspaceController } from './workspace/workspace.controller';
 import { SettingsModule } from './settings/settings.module';
 import { ProjectsModule } from './projects/projects.module';
 import { UploadsModule } from './uploads/uploads.module';
+import { SnippetsModule } from './snippets/snippets.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { UploadsModule } from './uploads/uploads.module';
     SettingsModule,
     ProjectsModule,
     UploadsModule,
+    SnippetsModule,
   ],
   controllers: [AppController, WorkspaceController],
   providers: [AppService, WorkspaceService],
