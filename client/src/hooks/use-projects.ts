@@ -15,6 +15,14 @@ export type ProjectFile = {
   updatedAt: string;
 };
 
+export type ProjectFileWithProject = ProjectFile & {
+  project: {
+    id: string;
+    name: string;
+    status: ProjectStatus;
+  };
+};
+
 export type Documentation = {
   id: string;
   projectId?: string;
@@ -97,6 +105,7 @@ type ApiResponse<T> = {
 
 export const projectKeys = {
   all: ['projects'] as const,
+  files: ['project-files'] as const,
   detail: (id: string) => ['projects', id] as const,
 };
 
@@ -117,6 +126,17 @@ export function useProject(projectId: string | undefined) {
     enabled: Boolean(projectId),
     queryFn: async () => {
       const response = (await apiFetch(`/projects/${projectId}`)) as ApiResponse<Project>;
+      return response.data;
+    },
+    staleTime: 1000 * 60,
+  });
+}
+
+export function useProjectFiles() {
+  return useQuery({
+    queryKey: projectKeys.files,
+    queryFn: async () => {
+      const response = (await apiFetch('/projects/files')) as ApiResponse<ProjectFileWithProject[]>;
       return response.data;
     },
     staleTime: 1000 * 60,
@@ -273,6 +293,7 @@ export function useCreateProjectFile(projectId: string) {
       return response.data;
     },
     onSuccess: (file) => {
+      queryClient.invalidateQueries({ queryKey: projectKeys.files });
       queryClient.setQueryData<Project | undefined>(projectKeys.detail(projectId), (project) => {
         if (!project) return project;
 
@@ -296,6 +317,7 @@ export function useDeleteProjectFile(projectId: string) {
       return fileId;
     },
     onSuccess: (fileId) => {
+      queryClient.invalidateQueries({ queryKey: projectKeys.files });
       queryClient.setQueryData<Project | undefined>(projectKeys.detail(projectId), (project) => {
         if (!project) return project;
 

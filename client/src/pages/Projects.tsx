@@ -1,11 +1,12 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import { Link, useNavigate } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { Archive, ExternalLink, FolderPlus, GitBranch, Loader2, Plus, X } from 'lucide-react';
 import { CoverUploadField } from '@/components/shared/CoverUploadField';
+import { LoadingSpinner } from '@/components/shared/LoadingSpinner';
 import { StatusSelect } from '@/components/shared/StatusSelect';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -23,6 +24,7 @@ import {
   type ProjectPayload,
   type ProjectStatus,
 } from '@/hooks/use-projects';
+import { useToastStore } from '@/hooks/use-toast-store';
 
 const COVER_ALLOWED_TYPES = ['image/png', 'image/jpeg', 'image/webp'];
 const COVER_MAX_FILE_SIZE = 10 * 1024 * 1024;
@@ -97,7 +99,7 @@ export default function ProjectsPage() {
   const [coverError, setCoverError] = useState('');
   const [isUploadingCover, setIsUploadingCover] = useState(false);
   const [statusFilter, setStatusFilter] = useState<ProjectStatusFilter>('ACTIVE');
-  const coverPreviewRef = useRef('');
+  const toast = useToastStore();
 
   const filteredProjects = useMemo(() => {
     if (statusFilter === 'ALL') return projects;
@@ -115,16 +117,18 @@ export default function ProjectsPage() {
       tags: '',
     },
   });
-  const selectedStatus = form.watch('status');
+  const selectedStatus = useWatch({
+    control: form.control,
+    name: 'status',
+  });
 
   useEffect(() => {
     return () => {
-      if (coverPreviewRef.current) {
-        URL.revokeObjectURL(coverPreviewRef.current);
-        coverPreviewRef.current = '';
+      if (coverPreviewUrl) {
+        URL.revokeObjectURL(coverPreviewUrl);
       }
     };
-  }, []);
+  }, [coverPreviewUrl]);
 
   async function handleCreate(values: ProjectFormValues) {
     setFormError('');
@@ -142,9 +146,12 @@ export default function ProjectsPage() {
       }
 
       resetCreateModal();
+      toast.success('Project created', project.name);
       navigate(`/projects/${project.id}`);
     } catch (err) {
-      setFormError(err instanceof Error ? err.message : 'Failed to create project.');
+      const message = err instanceof Error ? err.message : 'Failed to create project.';
+      setFormError(message);
+      toast.error('Project create failed', message);
     } finally {
       setIsUploadingCover(false);
     }
@@ -165,15 +172,12 @@ export default function ProjectsPage() {
       return;
     }
 
-    revokeCoverPreview();
     const previewUrl = URL.createObjectURL(file);
-    coverPreviewRef.current = previewUrl;
     setCoverFile(file);
     setCoverPreviewUrl(previewUrl);
   }
 
   function clearCoverSelection() {
-    revokeCoverPreview();
     setCoverFile(null);
     setCoverPreviewUrl('');
     setCoverError('');
@@ -186,14 +190,7 @@ export default function ProjectsPage() {
     setIsCreateOpen(false);
   }
 
-  function revokeCoverPreview() {
-    if (coverPreviewRef.current) {
-      URL.revokeObjectURL(coverPreviewRef.current);
-      coverPreviewRef.current = '';
-    }
-  }
-
-  if (isLoading) return <div className="animate-pulse p-4 text-muted-foreground">Loading projects...</div>;
+  if (isLoading) return <LoadingSpinner label="Loading projects..." />;
   if (error) return <div className="p-4 text-destructive">Failed to load projects.</div>;
 
   return (
@@ -361,6 +358,16 @@ function ProjectGrid({ projects, emptyText }: { projects: Project[]; emptyText: 
 
 function ProjectCard({ project }: { project: Project }) {
   const archiveProject = useArchiveProject(project.id);
+  const toast = useToastStore();
+
+  async function handleArchive() {
+    try {
+      await archiveProject.mutateAsync();
+      toast.success('Project archived', project.name);
+    } catch (error) {
+      toast.error('Archive failed', error instanceof Error ? error.message : 'Please try again.');
+    }
+  }
 
   return (
     <div className="group rounded-[28px] border border-border bg-card p-5 text-card-foreground shadow-sm transition-all hover:border-ring hover:shadow-md">
@@ -385,7 +392,7 @@ function ProjectCard({ project }: { project: Project }) {
           size="icon"
           title="Archive project"
           disabled={project.status === 'ARCHIVED' || archiveProject.isPending}
-          onClick={() => void archiveProject.mutateAsync()}
+          onClick={() => void handleArchive()}
         >
           {archiveProject.isPending ? <Loader2 className="animate-spin" /> : <Archive />}
         </Button>

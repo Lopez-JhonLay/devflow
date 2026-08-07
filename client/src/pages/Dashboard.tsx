@@ -1,4 +1,5 @@
 import { Link, useOutletContext } from 'react-router-dom';
+import { LoadingSpinner } from '@/components/shared/LoadingSpinner';
 import { useWorkspaceActivity } from '@/hooks/use-workspace';
 import type { AuthUser } from '@/components/layout/AppLayout';
 import { Button } from '@/components/ui/button';
@@ -8,7 +9,7 @@ export default function DashboardPage() {
   const { user } = useOutletContext<{ user: AuthUser }>();
   const { data, isLoading, error } = useWorkspaceActivity();
 
-  if (isLoading) return <div className="animate-pulse p-4 text-muted-foreground">Loading workspace...</div>;
+  if (isLoading) return <LoadingSpinner label="Loading workspace..." />;
   if (error) return <div className="p-4 text-destructive">Failed to load activity.</div>;
 
   return (
@@ -31,18 +32,18 @@ export default function DashboardPage() {
           >
             <Plus className="mr-2 h-4 w-4 text-muted-foreground" /> New Project
           </Link>
-          <Button
-            variant="outline"
-            className="h-12 w-full border-border bg-card px-6 text-sm font-medium shadow-sm transition-all hover:bg-muted sm:w-auto sm:max-w-60 sm:flex-1"
+          <Link
+            to="/snippets"
+            className="inline-flex h-12 w-full shrink-0 items-center justify-center rounded-full border border-border bg-card px-6 text-sm font-medium shadow-sm transition-all hover:bg-muted sm:w-auto sm:max-w-60 sm:flex-1"
           >
             <Scissors className="mr-2 h-4 w-4 text-muted-foreground" /> New Snippet
-          </Button>
-          <Button
-            variant="outline"
-            className="h-12 w-full border-border bg-card px-6 text-sm font-medium shadow-sm transition-all hover:bg-muted sm:w-auto sm:max-w-60 sm:flex-1"
+          </Link>
+          <Link
+            to="/files"
+            className="inline-flex h-12 w-full shrink-0 items-center justify-center rounded-full border border-border bg-card px-6 text-sm font-medium shadow-sm transition-all hover:bg-muted sm:w-auto sm:max-w-60 sm:flex-1"
           >
-            <Cloud className="mr-2 h-4 w-4 text-muted-foreground" /> Upload Asset
-          </Button>
+            <Cloud className="mr-2 h-4 w-4 text-muted-foreground" /> Asset Library
+          </Link>
         </div>
       </div>
 

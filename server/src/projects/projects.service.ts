@@ -91,6 +91,31 @@ export class ProjectsService {
     };
   }
 
+  async listProjectFiles(userId: string) {
+    const files = await this.prisma.projectFile.findMany({
+      where: {
+        project: {
+          userId,
+        },
+      },
+      orderBy: { createdAt: 'desc' },
+      include: {
+        project: {
+          select: {
+            id: true,
+            name: true,
+            status: true,
+          },
+        },
+      },
+    });
+
+    return {
+      success: true,
+      data: files,
+    };
+  }
+
   async createProjectCoverUploadSignature(userId: string, projectId: string) {
     this.validateProjectId(projectId);
     await this.ensureProjectOwnership(userId, projectId);

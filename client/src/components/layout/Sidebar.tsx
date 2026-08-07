@@ -1,7 +1,8 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Triangle, Home, Folder, Scissors, Cloud, Settings, LogOut } from 'lucide-react';
+import { Home, Folder, Scissors, Cloud, Settings, LogOut } from 'lucide-react';
 import { authClient } from '@/lib/auth-client';
 import { Button } from '@/components/ui/button';
+import devflowLogo from '@/assets/devflow-logo-cropped.png';
 import type { AuthUser } from './AppLayout';
 
 interface SidebarProps {
@@ -28,10 +29,9 @@ export function Sidebar({ user, onClose }: SidebarProps) {
 
   return (
     <aside className="flex h-screen w-full flex-col border-r border-sidebar-border bg-sidebar font-sans text-sidebar-foreground">
-      <div className="hidden md:flex h-16 items-center px-6 mb-4 shrink-0">
-        <Link to="/dashboard" className="flex items-center gap-2">
-          <Triangle className="h-6 w-6 fill-sidebar-foreground text-sidebar-foreground" />
-          <span className="text-lg font-bold tracking-tight text-sidebar-foreground">DevFlow</span>
+      <div className="hidden md:flex h-20 items-center px-5 mb-4 shrink-0">
+        <Link to="/dashboard" className="flex w-full items-center">
+          <img src={devflowLogo} alt="DevFlow" className="h-16 w-auto max-w-52 object-contain object-left" />
         </Link>
       </div>
 

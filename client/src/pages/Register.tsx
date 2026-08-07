@@ -8,8 +8,9 @@ import { ThemeToggle } from '@/components/shared/ThemeToggle';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Triangle } from 'lucide-react';
+import { Eye, EyeOff } from 'lucide-react';
 import { GitHubIcon } from '@/components/shared/GitHubIcon';
+import devflowLogo from '@/assets/devflow-logo-cropped.png';
 
 // 1. Define the strict validation schema
 const registerSchema = z
@@ -27,6 +28,8 @@ type RegisterFormValues = z.infer<typeof registerSchema>;
 
 export default function RegisterPage() {
   const [authError, setAuthError] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const navigate = useNavigate();
 
   // 2. Initialize React Hook Form
@@ -69,10 +72,7 @@ export default function RegisterPage() {
 
       <div className="w-full max-w-110 rounded-[32px] border border-border bg-card p-8 text-card-foreground shadow-sm">
         <div className="flex flex-col items-center mb-8">
-          <div className="flex items-center gap-2 mb-6">
-            <Triangle className="h-6 w-6 fill-foreground text-foreground" />
-            <span className="text-xl font-bold tracking-tight text-foreground">DevFlow</span>
-          </div>
+          <img src={devflowLogo} alt="DevFlow" className="mb-5 h-22 w-auto max-w-72 object-contain" />
           <h1 className="text-2xl font-bold text-foreground mb-2">Create your account</h1>
           <p className="text-sm text-muted-foreground text-center">Join DevFlow to centralize your software resources.</p>
         </div>
@@ -100,13 +100,24 @@ export default function RegisterPage() {
             <Label htmlFor="password" className="text-sm font-medium text-foreground">
               Password
             </Label>
-            <Input
+            <div className="relative">
+              <Input
               id="password"
-              type="password"
+              type={showPassword ? 'text' : 'password'}
               placeholder="••••••••••••••"
               {...register('password')}
-              className={`bg-background/50 ${errors.password ? 'border-red-500' : ''}`}
+              className={`bg-background/50 pr-10 ${errors.password ? 'border-red-500' : ''}`}
             />
+              <button
+                type="button"
+                onClick={() => setShowPassword((visible) => !visible)}
+                className="absolute right-2 top-1/2 flex h-6 w-6 -translate-y-1/2 cursor-pointer items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                aria-label={showPassword ? 'Hide password' : 'Show password'}
+                title={showPassword ? 'Hide password' : 'Show password'}
+              >
+                {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+              </button>
+            </div>
             {errors.password && <p className="text-xs text-red-500">{errors.password.message}</p>}
           </div>
 
@@ -114,13 +125,24 @@ export default function RegisterPage() {
             <Label htmlFor="confirmPassword" className="text-sm font-medium text-foreground">
               Confirm Password
             </Label>
-            <Input
+            <div className="relative">
+              <Input
               id="confirmPassword"
-              type="password"
+              type={showConfirmPassword ? 'text' : 'password'}
               placeholder="••••••••••••••"
               {...register('confirmPassword')}
-              className={`bg-background/50 ${errors.confirmPassword ? 'border-red-500' : ''}`}
+              className={`bg-background/50 pr-10 ${errors.confirmPassword ? 'border-red-500' : ''}`}
             />
+              <button
+                type="button"
+                onClick={() => setShowConfirmPassword((visible) => !visible)}
+                className="absolute right-2 top-1/2 flex h-6 w-6 -translate-y-1/2 cursor-pointer items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                aria-label={showConfirmPassword ? 'Hide password' : 'Show password'}
+                title={showConfirmPassword ? 'Hide password' : 'Show password'}
+              >
+                {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+              </button>
+            </div>
             {errors.confirmPassword && <p className="text-xs text-red-500">{errors.confirmPassword.message}</p>}
           </div>
 
