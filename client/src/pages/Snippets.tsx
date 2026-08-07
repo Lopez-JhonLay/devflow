@@ -5,11 +5,13 @@ import * as z from 'zod';
 import hljs from 'highlight.js';
 import 'highlight.js/styles/github-dark.css';
 import { Check, Copy, Edit3, Loader2, Plus, Search, Star, Trash2, X } from 'lucide-react';
+import { LoadingSpinner } from '@/components/shared/LoadingSpinner';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useDebounce } from '@/hooks/use-debounce';
+import { useToastStore } from '@/hooks/use-toast-store';
 import {
   useCreateSnippet,
   useDeleteSnippet,
@@ -118,7 +120,7 @@ export default function SnippetsPage() {
         <FavoriteFilterControl value={favoriteFilter} onChange={setFavoriteFilter} />
       </div>
 
-      {isLoading && <div className="animate-pulse p-4 text-muted-foreground">Loading snippets...</div>}
+      {isLoading && <LoadingSpinner label="Loading snippets..." />}
       {error && <div className="p-4 text-destructive">Failed to load snippets.</div>}
 
       {!isLoading && !error && (
@@ -180,11 +182,34 @@ function SnippetCard({ snippet, onEdit }: { snippet: Snippet; onEdit: (snippet: 
   const updateSnippet = useUpdateSnippet(snippet.id);
   const deleteSnippet = useDeleteSnippet();
   const [didCopy, setDidCopy] = useState(false);
+  const toast = useToastStore();
 
   async function handleCopy() {
-    await navigator.clipboard.writeText(snippet.code);
-    setDidCopy(true);
-    window.setTimeout(() => setDidCopy(false), 1200);
+    try {
+      await navigator.clipboard.writeText(snippet.code);
+      setDidCopy(true);
+      toast.success('Snippet copied', snippet.title);
+      window.setTimeout(() => setDidCopy(false), 1200);
+    } catch {
+      toast.error('Copy failed', 'Your browser blocked clipboard access.');
+    }
+  }
+
+  async function handleFavoriteToggle() {
+    try {
+      await updateSnippet.mutateAsync({ isFavorite: !snippet.isFavorite });
+    } catch (error) {
+      toast.error('Favorite update failed', error instanceof Error ? error.message : 'Please try again.');
+    }
+  }
+
+  async function handleDelete() {
+    try {
+      await deleteSnippet.mutateAsync(snippet.id);
+      toast.success('Snippet deleted', snippet.title);
+    } catch (error) {
+      toast.error('Delete failed', error instanceof Error ? error.message : 'Please try again.');
+    }
   }
 
   return (
@@ -203,7 +228,7 @@ function SnippetCard({ snippet, onEdit }: { snippet: Snippet; onEdit: (snippet: 
               variant="ghost"
               size="icon"
               title={snippet.isFavorite ? 'Remove favorite' : 'Favorite'}
-              onClick={() => void updateSnippet.mutateAsync({ isFavorite: !snippet.isFavorite })}
+              onClick={() => void handleFavoriteToggle()}
             >
               <Star
                 className={`transition-none ${snippet.isFavorite ? 'fill-foreground text-foreground' : 'fill-transparent text-muted-foreground'}`}
@@ -237,7 +262,7 @@ function SnippetCard({ snippet, onEdit }: { snippet: Snippet; onEdit: (snippet: 
               size="icon"
               title="Delete snippet"
               disabled={deleteSnippet.isPending}
-              onClick={() => void deleteSnippet.mutateAsync(snippet.id)}
+              onClick={() => void handleDelete()}
             >
               {deleteSnippet.isPending ? <Loader2 className="animate-spin" /> : <Trash2 />}
             </Button>
@@ -252,6 +277,7 @@ function SnippetFormModal({ snippet, onClose }: { snippet: Snippet | null; onClo
   const createSnippet = useCreateSnippet();
   const updateSnippet = useUpdateSnippet(snippet?.id ?? '');
   const [formError, setFormError] = useState('');
+  const toast = useToastStore();
   const form = useForm<SnippetFormValues>({
     resolver: zodResolver(snippetFormSchema),
     defaultValues: {
@@ -269,13 +295,17 @@ function SnippetFormModal({ snippet, onClose }: { snippet: Snippet | null; onClo
     try {
       if (snippet) {
         await updateSnippet.mutateAsync(toPayload(values, snippet.isFavorite));
+        toast.success('Snippet updated', values.title);
       } else {
         await createSnippet.mutateAsync(toPayload(values, false));
+        toast.success('Snippet created', values.title);
       }
 
       onClose();
     } catch (err) {
-      setFormError(err instanceof Error ? err.message : 'Failed to save snippet.');
+      const message = err instanceof Error ? err.message : 'Failed to save snippet.';
+      setFormError(message);
+      toast.error('Save failed', message);
     }
   }
 

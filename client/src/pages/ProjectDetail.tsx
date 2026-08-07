@@ -1,12 +1,13 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { ArrowLeft, Edit3, ExternalLink, FileText, GitBranch, ImageOff, Loader2, Save, X } from 'lucide-react';
 import { AssetUpload } from '@/components/projects/AssetUpload';
 import { MarkdownEditor } from '@/components/projects/MarkdownEditor';
 import { CoverUploadField } from '@/components/shared/CoverUploadField';
+import { LoadingSpinner } from '@/components/shared/LoadingSpinner';
 import { StatusSelect } from '@/components/shared/StatusSelect';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -20,6 +21,7 @@ import {
   type ProjectPayload,
   type ProjectStatus,
 } from '@/hooks/use-projects';
+import { useToastStore } from '@/hooks/use-toast-store';
 
 const COVER_ALLOWED_TYPES = ['image/png', 'image/jpeg', 'image/webp'];
 const COVER_MAX_FILE_SIZE = 10 * 1024 * 1024;
@@ -81,7 +83,7 @@ export default function ProjectDetailPage() {
   const [coverPreviewUrl, setCoverPreviewUrl] = useState('');
   const [coverError, setCoverError] = useState('');
   const [isUploadingCover, setIsUploadingCover] = useState(false);
-  const coverPreviewRef = useRef('');
+  const toast = useToastStore();
 
   const form = useForm<ProjectOverviewValues>({
     resolver: zodResolver(projectOverviewSchema),
@@ -94,7 +96,10 @@ export default function ProjectDetailPage() {
       tags: '',
     },
   });
-  const selectedStatus = form.watch('status');
+  const selectedStatus = useWatch({
+    control: form.control,
+    name: 'status',
+  });
 
   const defaultValues = useMemo<ProjectOverviewValues | null>(() => {
     if (!project) return null;
@@ -111,18 +116,16 @@ export default function ProjectDetailPage() {
 
   useEffect(() => {
     return () => {
-      if (coverPreviewRef.current) {
-        URL.revokeObjectURL(coverPreviewRef.current);
-        coverPreviewRef.current = '';
+      if (coverPreviewUrl.startsWith('blob:')) {
+        URL.revokeObjectURL(coverPreviewUrl);
       }
     };
-  }, []);
+  }, [coverPreviewUrl]);
 
   function openEditModal() {
     if (!defaultValues || !project) return;
 
     form.reset(defaultValues);
-    clearLocalCoverPreview();
     setCoverFile(null);
     setCoverPreviewUrl(project.coverImage ?? '');
     setCoverError('');
@@ -132,7 +135,6 @@ export default function ProjectDetailPage() {
   }
 
   function closeEditModal() {
-    clearLocalCoverPreview();
     setCoverFile(null);
     setCoverPreviewUrl('');
     setCoverError('');
@@ -156,9 +158,12 @@ export default function ProjectDetailPage() {
 
       await updateProject.mutateAsync(payload);
       setFormMessage('Project updated.');
+      toast.success('Project updated', values.name);
       closeEditModal();
     } catch (err) {
-      setFormError(err instanceof Error ? err.message : 'Failed to update project.');
+      const message = err instanceof Error ? err.message : 'Failed to update project.';
+      setFormError(message);
+      toast.error('Project update failed', message);
     } finally {
       setIsUploadingCover(false);
     }
@@ -179,21 +184,12 @@ export default function ProjectDetailPage() {
       return;
     }
 
-    clearLocalCoverPreview();
     const previewUrl = URL.createObjectURL(file);
-    coverPreviewRef.current = previewUrl;
     setCoverFile(file);
     setCoverPreviewUrl(previewUrl);
   }
 
-  function clearLocalCoverPreview() {
-    if (coverPreviewRef.current) {
-      URL.revokeObjectURL(coverPreviewRef.current);
-      coverPreviewRef.current = '';
-    }
-  }
-
-  if (isLoading) return <div className="animate-pulse p-4 text-muted-foreground">Loading project...</div>;
+  if (isLoading) return <LoadingSpinner label="Loading project..." />;
 
   if (error || !project) {
     return (

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Outlet, useOutletContext } from 'react-router-dom';
-import { Menu, X, Triangle } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
+import devflowLogo from '@/assets/devflow-logo-cropped.png';
 import { Sidebar } from './Sidebar';
 
 export interface AuthUser {
@@ -17,10 +18,7 @@ export function AppLayout() {
   return (
     <div className="flex h-screen w-full flex-col overflow-hidden bg-background text-foreground md:flex-row">
       <div className="flex shrink-0 items-center justify-between border-b border-border bg-background p-4 md:hidden">
-        <div className="flex items-center gap-2">
-          <Triangle className="h-5 w-5 fill-foreground text-foreground" />
-          <span className="text-base font-bold tracking-tight text-foreground">DevFlow</span>
-        </div>
+        <img src={devflowLogo} alt="DevFlow" className="h-10 w-auto max-w-36 object-contain object-left" />
         <button
           onClick={() => setIsSidebarOpen(!isSidebarOpen)}
           className="-mr-2 rounded-lg p-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"

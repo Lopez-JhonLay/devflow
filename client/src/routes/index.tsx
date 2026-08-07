@@ -8,6 +8,7 @@ import ProjectDetailPage from '@/pages/ProjectDetail';
 import ProjectsPage from '@/pages/Projects';
 import SettingsPage from '@/pages/Settings';
 import SnippetsPage from '@/pages/Snippets';
+import FilesPage from '@/pages/Files';
 import { AuthGuard } from '@/components/auth/auth-guard';
 import { AppLayout } from '@/components/layout/AppLayout';
 export const router = createBrowserRouter([
@@ -51,6 +52,10 @@ export const router = createBrowserRouter([
           {
             path: '/snippets',
             element: <SnippetsPage />,
+          },
+          {
+            path: '/files',
+            element: <FilesPage />,
           },
           {
             path: '/settings',

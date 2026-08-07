@@ -12,6 +12,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { API_URL } from '@/lib/constants';
 import { cn } from '@/lib/utils';
+import { useToastStore } from '@/hooks/use-toast-store';
 
 const AVATAR_MAX_FILE_SIZE = 5 * 1024 * 1024;
 const AVATAR_ALLOWED_TYPES = ['image/png', 'image/jpeg', 'image/webp'];
@@ -86,6 +87,7 @@ export default function SettingsPage() {
   const [hasPassword, setHasPassword] = useState<boolean | null>(null);
   const [isUploadingAvatar, setIsUploadingAvatar] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const toast = useToastStore();
 
   const initials = useMemo(() => {
     const source = user.name || user.email || 'D';
@@ -171,11 +173,14 @@ export default function SettingsPage() {
         image: avatarUrl || null,
       });
       setProfileStatus({ type: 'success', message: 'Profile updated.' });
+      toast.success('Profile updated');
     } catch (error) {
+      const message = error instanceof Error ? error.message : 'Failed to update profile.';
       setProfileStatus({
         type: 'error',
-        message: error instanceof Error ? error.message : 'Failed to update profile.',
+        message,
       });
+      toast.error('Profile update failed', message);
     }
   }
 
@@ -186,11 +191,13 @@ export default function SettingsPage() {
 
     if (!AVATAR_ALLOWED_TYPES.includes(file.type)) {
       setAvatarStatus({ type: 'error', message: 'Use a PNG, JPG, or WebP image.' });
+      toast.warning('Invalid avatar type', 'Use a PNG, JPG, or WebP image.');
       return;
     }
 
     if (file.size > AVATAR_MAX_FILE_SIZE) {
       setAvatarStatus({ type: 'error', message: 'Avatar must be 5 MB or smaller.' });
+      toast.warning('Avatar too large', 'Avatar must be 5 MB or smaller.');
       return;
     }
 
@@ -229,11 +236,14 @@ export default function SettingsPage() {
       await updateProfile({ image: uploadPayload.secure_url });
       setAvatarUrl(uploadPayload.secure_url);
       setAvatarStatus({ type: 'success', message: 'Avatar uploaded.' });
+      toast.success('Avatar uploaded');
     } catch (error) {
+      const message = error instanceof Error ? error.message : 'Failed to upload avatar.';
       setAvatarStatus({
         type: 'error',
-        message: error instanceof Error ? error.message : 'Failed to upload avatar.',
+        message,
       });
+      toast.error('Avatar upload failed', message);
     } finally {
       setIsUploadingAvatar(false);
       if (fileInputRef.current) fileInputRef.current.value = '';
@@ -248,11 +258,14 @@ export default function SettingsPage() {
       await updateProfile({ image: null });
       setAvatarUrl('');
       setAvatarStatus({ type: 'success', message: 'Avatar removed.' });
+      toast.success('Avatar removed');
     } catch (error) {
+      const message = error instanceof Error ? error.message : 'Failed to remove avatar.';
       setAvatarStatus({
         type: 'error',
-        message: error instanceof Error ? error.message : 'Failed to remove avatar.',
+        message,
       });
+      toast.error('Avatar remove failed', message);
     } finally {
       setIsUploadingAvatar(false);
     }
@@ -280,11 +293,14 @@ export default function SettingsPage() {
 
       passwordForm.reset();
       setPasswordStatus({ type: 'success', message: 'Password updated.' });
+      toast.success('Password updated');
     } catch (error) {
+      const message = error instanceof Error ? error.message : 'Failed to update password.';
       setPasswordStatus({
         type: 'error',
-        message: error instanceof Error ? error.message : 'Failed to update password.',
+        message,
       });
+      toast.error('Password update failed', message);
     }
   }
 

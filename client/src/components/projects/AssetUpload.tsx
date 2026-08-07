@@ -9,6 +9,7 @@ import {
   type ProjectFile,
   type UploadSignature,
 } from '@/hooks/use-projects';
+import { useToastStore } from '@/hooks/use-toast-store';
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024;
 const ALLOWED_MIME_TYPES = ['image/png', 'image/jpeg', 'image/webp', 'image/gif', 'image/svg+xml', 'application/pdf'];
@@ -42,6 +43,7 @@ export function AssetUpload({ projectId, files }: AssetUploadProps) {
   const deleteFile = useDeleteProjectFile(projectId);
   const [isDragging, setIsDragging] = useState(false);
   const [uploads, setUploads] = useState<UploadItem[]>([]);
+  const toast = useToastStore();
 
   async function handleFiles(fileList: FileList | File[]) {
     const selectedFiles = Array.from(fileList);
@@ -58,7 +60,10 @@ export function AssetUpload({ projectId, files }: AssetUploadProps) {
         error: validationError,
       });
 
-      if (validationError) continue;
+      if (validationError) {
+        toast.warning('File not uploaded', validationError);
+        continue;
+      }
 
       try {
         updateUpload(uploadId, { status: 'uploading', progress: 2 });
@@ -76,14 +81,17 @@ export function AssetUpload({ projectId, files }: AssetUploadProps) {
           size: uploadedFile.bytes ?? file.size,
         });
         updateUpload(uploadId, { status: 'complete', progress: 100 });
+        toast.success('Asset uploaded', file.name);
         window.setTimeout(() => {
           removeUpload(uploadId);
         }, 700);
       } catch (err) {
+        const message = err instanceof Error ? err.message : 'Upload failed.';
         updateUpload(uploadId, {
           status: 'error',
-          error: err instanceof Error ? err.message : 'Upload failed.',
+          error: message,
         });
+        toast.error('Asset upload failed', message);
       }
     }
   }
@@ -158,7 +166,14 @@ export function AssetUpload({ projectId, files }: AssetUploadProps) {
                 key={file.id}
                 file={file}
                 isDeleting={deleteFile.isPending}
-                onDelete={() => void deleteFile.mutateAsync(file.id)}
+                onDelete={async () => {
+                  try {
+                    await deleteFile.mutateAsync(file.id);
+                    toast.success('Asset deleted', file.name);
+                  } catch (error) {
+                    toast.error('Asset delete failed', error instanceof Error ? error.message : 'Please try again.');
+                  }
+                }}
               />
             ))
           ) : (

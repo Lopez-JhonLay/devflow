@@ -32,6 +32,11 @@ export class ProjectsController {
     return this.projectsService.listProjects(user.id);
   }
 
+  @Get('files')
+  listProjectFiles(@CurrentUser() user: User) {
+    return this.projectsService.listProjectFiles(user.id);
+  }
+
   @Get(':id')
   getProject(@CurrentUser() user: User, @Param('id') projectId: string) {
     return this.projectsService.getProject(user.id, projectId);
