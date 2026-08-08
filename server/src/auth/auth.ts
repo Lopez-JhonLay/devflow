@@ -3,6 +3,7 @@ import { betterAuth } from 'better-auth';
 import { prismaAdapter } from 'better-auth/adapters/prisma';
 import { PrismaClient } from '@prisma/client';
 import { PrismaPg } from '@prisma/adapter-pg';
+import { serverUrl, trustedOrigins } from '@/config/app-urls';
 
 // 1. Create the adapter with your connection string
 const adapter = new PrismaPg({
@@ -13,9 +14,9 @@ const adapter = new PrismaPg({
 const prisma = new PrismaClient({ adapter }) as PrismaClient;
 
 export const auth = betterAuth({
-  baseURL: 'http://localhost:3000',
+  baseURL: serverUrl,
 
-  trustedOrigins: ['http://localhost:5173'],
+  trustedOrigins,
 
   database: prismaAdapter(prisma, {
     provider: 'postgresql',
