@@ -5,6 +5,8 @@ import { PrismaClient } from '@prisma/client';
 import { PrismaPg } from '@prisma/adapter-pg';
 import { serverUrl, trustedOrigins } from '@/config/app-urls';
 
+const isProduction = process.env.NODE_ENV === 'production';
+
 // 1. Create the adapter with your connection string
 const adapter = new PrismaPg({
   connectionString: process.env.DATABASE_URL as string,
@@ -17,6 +19,16 @@ export const auth = betterAuth({
   baseURL: serverUrl,
 
   trustedOrigins,
+
+  advanced: {
+    useSecureCookies: isProduction,
+    defaultCookieAttributes: {
+      sameSite: isProduction ? 'none' : 'lax',
+      secure: isProduction,
+      httpOnly: true,
+      partitioned: isProduction,
+    },
+  },
 
   database: prismaAdapter(prisma, {
     provider: 'postgresql',
