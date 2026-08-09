@@ -11,6 +11,7 @@ import { Label } from '@/components/ui/label';
 import { Eye, EyeOff } from 'lucide-react';
 import { GitHubIcon } from '@/components/shared/GitHubIcon';
 import devflowLogo from '@/assets/devflow-logo-cropped.png';
+import { getAppUrl } from '@/lib/app-url';
 
 const loginSchema = z.object({
   email: z.string().email({ message: 'Please enter a valid email address' }),
@@ -48,7 +49,7 @@ export default function LoginPage() {
   };
 
   const handleSocialLogin = async (provider: 'github' | 'google') => {
-    await authClient.signIn.social({ provider, callbackURL: 'http://localhost:5173/dashboard' });
+    await authClient.signIn.social({ provider, callbackURL: getAppUrl('/dashboard') });
   };
 
   return (

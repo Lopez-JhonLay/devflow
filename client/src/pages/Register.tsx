@@ -11,6 +11,7 @@ import { Label } from '@/components/ui/label';
 import { Eye, EyeOff } from 'lucide-react';
 import { GitHubIcon } from '@/components/shared/GitHubIcon';
 import devflowLogo from '@/assets/devflow-logo-cropped.png';
+import { getAppUrl } from '@/lib/app-url';
 
 // 1. Define the strict validation schema
 const registerSchema = z
@@ -61,7 +62,7 @@ export default function RegisterPage() {
   };
 
   const handleSocialLogin = async (provider: 'github' | 'google') => {
-    await authClient.signIn.social({ provider, callbackURL: 'http://localhost:5173/dashboard' });
+    await authClient.signIn.social({ provider, callbackURL: getAppUrl('/dashboard') });
   };
 
   return (
