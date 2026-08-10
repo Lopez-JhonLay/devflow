@@ -62,7 +62,11 @@ export default function RegisterPage() {
   };
 
   const handleSocialLogin = async (provider: 'github' | 'google') => {
-    await authClient.signIn.social({ provider, callbackURL: getAppUrl('/dashboard') });
+    await authClient.signIn.social({
+      provider,
+      callbackURL: getAppUrl('/dashboard'),
+      errorCallbackURL: getAppUrl('/login'),
+    });
   };
 
   return (

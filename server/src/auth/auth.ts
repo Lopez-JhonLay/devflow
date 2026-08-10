@@ -20,13 +20,16 @@ export const auth = betterAuth({
 
   trustedOrigins,
 
+  account: {
+    storeStateStrategy: isProduction ? 'cookie' : 'database',
+  },
+
   advanced: {
     useSecureCookies: isProduction,
     defaultCookieAttributes: {
       sameSite: isProduction ? 'none' : 'lax',
       secure: isProduction,
       httpOnly: true,
-      partitioned: isProduction,
     },
   },
 
