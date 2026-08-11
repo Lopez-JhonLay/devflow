@@ -6,10 +6,9 @@ import {
   getUploadSignature,
   useCreateProjectFile,
   useDeleteProjectFile,
-  type ProjectFile,
-  type UploadSignature,
 } from '@/hooks/use-projects';
 import { useToastStore } from '@/hooks/use-toast-store';
+import type { ProjectFile, UploadSignature } from '@/types/project.types';
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024;
 const ALLOWED_MIME_TYPES = ['image/png', 'image/jpeg', 'image/webp', 'image/gif', 'image/svg+xml', 'application/pdf'];

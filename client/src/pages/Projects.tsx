@@ -3,7 +3,6 @@ import { useQueryClient } from '@tanstack/react-query';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import * as z from 'zod';
 import { Archive, ExternalLink, FolderPlus, GitBranch, Loader2, Plus, X } from 'lucide-react';
 import { CoverUploadField } from '@/components/shared/CoverUploadField';
 import { LoadingSpinner } from '@/components/shared/LoadingSpinner';
@@ -20,11 +19,11 @@ import {
   useArchiveProject,
   useCreateProject,
   useProjects,
-  type Project,
-  type ProjectPayload,
-  type ProjectStatus,
 } from '@/hooks/use-projects';
 import { useToastStore } from '@/hooks/use-toast-store';
+import { projectFormSchema, type ProjectFormValues } from '@/schemas/project.schema';
+import type { Project, ProjectPayload, ProjectStatus } from '@/types/project.types';
+import { parseTags } from '@/utils/tags';
 
 const COVER_ALLOWED_TYPES = ['image/png', 'image/jpeg', 'image/webp'];
 const COVER_MAX_FILE_SIZE = 10 * 1024 * 1024;
@@ -37,22 +36,6 @@ const PROJECT_FILTERS: Array<{ value: ProjectStatusFilter; label: string }> = [
   { value: 'ARCHIVED', label: 'Archived' },
 ];
 
-const tagsSchema = z.string().refine((value) => parseTags(value).length <= 10, 'A project can have up to 10 tags.').refine(
-  (value) => parseTags(value).every((tag) => tag.length <= 32),
-  'Tags cannot exceed 32 characters.',
-);
-
-const projectFormSchema = z.object({
-  name: z.string().trim().min(1, 'Project name is required').max(100, 'Project name cannot exceed 100 characters'),
-  description: z.string().max(500, 'Description cannot exceed 500 characters').optional(),
-  repositoryUrl: z.string().url('Enter a valid repository URL').or(z.literal('')).optional(),
-  liveUrl: z.string().url('Enter a valid live URL').or(z.literal('')).optional(),
-  status: z.enum(['ACTIVE', 'PAUSED', 'ARCHIVED']),
-  tags: tagsSchema.optional(),
-});
-
-type ProjectFormValues = z.infer<typeof projectFormSchema>;
-
 function toPayload(values: ProjectFormValues): ProjectPayload {
   return {
     name: values.name,
@@ -62,17 +45,6 @@ function toPayload(values: ProjectFormValues): ProjectPayload {
     status: values.status,
     tags: parseTags(values.tags),
   };
-}
-
-function parseTags(tags?: string) {
-  return Array.from(
-    new Set(
-      (tags ?? '')
-        .split(',')
-        .map((tag) => tag.trim().toLowerCase())
-        .filter(Boolean),
-    ),
-  );
 }
 
 function statusLabel(status: string) {

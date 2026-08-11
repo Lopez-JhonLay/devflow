@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import * as z from 'zod';
 import { ArrowLeft, Edit3, ExternalLink, FileText, GitBranch, ImageOff, Loader2, Save, X } from 'lucide-react';
 import { AssetUpload } from '@/components/projects/AssetUpload';
 import { MarkdownEditor } from '@/components/projects/MarkdownEditor';
@@ -18,42 +17,16 @@ import {
   uploadProjectCover,
   useProject,
   useUpdateProject,
-  type ProjectPayload,
-  type ProjectStatus,
 } from '@/hooks/use-projects';
 import { useToastStore } from '@/hooks/use-toast-store';
+import { projectFormSchema, type ProjectFormValues } from '@/schemas/project.schema';
+import type { ProjectPayload, ProjectStatus } from '@/types/project.types';
+import { parseTags } from '@/utils/tags';
 
 const COVER_ALLOWED_TYPES = ['image/png', 'image/jpeg', 'image/webp'];
 const COVER_MAX_FILE_SIZE = 10 * 1024 * 1024;
 
-const tagsSchema = z.string().refine((value) => parseTags(value).length <= 10, 'A project can have up to 10 tags.').refine(
-  (value) => parseTags(value).every((tag) => tag.length <= 32),
-  'Tags cannot exceed 32 characters.',
-);
-
-const projectOverviewSchema = z.object({
-  name: z.string().trim().min(1, 'Project name is required').max(100, 'Project name cannot exceed 100 characters'),
-  description: z.string().max(500, 'Description cannot exceed 500 characters').optional(),
-  repositoryUrl: z.string().url('Enter a valid repository URL').or(z.literal('')).optional(),
-  liveUrl: z.string().url('Enter a valid live URL').or(z.literal('')).optional(),
-  status: z.enum(['ACTIVE', 'PAUSED', 'ARCHIVED']),
-  tags: tagsSchema.optional(),
-});
-
-type ProjectOverviewValues = z.infer<typeof projectOverviewSchema>;
-
-function parseTags(tags?: string) {
-  return Array.from(
-    new Set(
-      (tags ?? '')
-        .split(',')
-        .map((tag) => tag.trim().toLowerCase())
-        .filter(Boolean),
-    ),
-  );
-}
-
-function toPayload(values: ProjectOverviewValues): ProjectPayload {
+function toPayload(values: ProjectFormValues): ProjectPayload {
   return {
     name: values.name,
     description: values.description?.trim() || null,
@@ -85,8 +58,8 @@ export default function ProjectDetailPage() {
   const [isUploadingCover, setIsUploadingCover] = useState(false);
   const toast = useToastStore();
 
-  const form = useForm<ProjectOverviewValues>({
-    resolver: zodResolver(projectOverviewSchema),
+  const form = useForm<ProjectFormValues>({
+    resolver: zodResolver(projectFormSchema),
     defaultValues: {
       name: '',
       description: '',
@@ -101,7 +74,7 @@ export default function ProjectDetailPage() {
     name: 'status',
   });
 
-  const defaultValues = useMemo<ProjectOverviewValues | null>(() => {
+  const defaultValues = useMemo<ProjectFormValues | null>(() => {
     if (!project) return null;
 
     return {
@@ -142,7 +115,7 @@ export default function ProjectDetailPage() {
     setIsEditOpen(false);
   }
 
-  async function handleUpdate(values: ProjectOverviewValues) {
+  async function handleUpdate(values: ProjectFormValues) {
     if (!id) return;
     setFormMessage('');
     setFormError('');

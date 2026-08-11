@@ -4,8 +4,9 @@ import { Check, Copy, ExternalLink, FileText, Folder, Image, Search } from 'luci
 import { LoadingSpinner } from '@/components/shared/LoadingSpinner';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { useProjectFiles, type ProjectFileWithProject } from '@/hooks/use-projects';
+import { useProjectFiles } from '@/hooks/use-projects';
 import { useToastStore } from '@/hooks/use-toast-store';
+import type { ProjectFileWithProject } from '@/types/project.types';
 
 type FileFilter = 'ALL' | 'IMAGES' | 'PDFS' | 'DIAGRAMS';
 

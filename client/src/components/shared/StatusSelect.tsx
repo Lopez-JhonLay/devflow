@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Check, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import type { ProjectStatus } from '@/hooks/use-projects';
+import type { ProjectStatus } from '@/types/project.types';
 
 const STATUS_OPTIONS: Array<{ value: ProjectStatus; label: string }> = [
   { value: 'ACTIVE', label: 'Active' },
