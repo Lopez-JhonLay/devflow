@@ -1,92 +1,57 @@
-# DevFlow
+﻿<p align="center">
+  <img src="client/src/assets/devflow-logo-cropped.png" alt="DevFlow" width="320" />
+</p>
 
-DevFlow is a personal developer workspace for organizing software projects, Markdown documentation, reusable code snippets, and project assets in one place.
+<h1 align="center">A place for your work.</h1>
 
-It is built for individual developers who want a focused workspace without jumping between notes apps, cloud drives, snippet files, and project trackers.
+<p align="center">
+  Keep your projects, notes, code snippets, and files together.<br />
+  A personal workspace for the things you’re building.
+</p>
 
-## Demo
+<p align="center">
+  <a href="https://devflow-five-iota.vercel.app">Try DevFlow</a>
+  &nbsp;·&nbsp;
+  <a href="client/src/assets/device-mockups">Browse screenshots</a>
+</p>
 
-Live app: [https://devflow-five-iota.vercel.app](https://devflow-five-iota.vercel.app)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="client/src/assets/device-mockups/paired/dark/dashboard.png" />
+  <img src="client/src/assets/device-mockups/paired/light/dashboard.png" alt="DevFlow dashboard shown on a laptop and phone, with recent projects, saved snippets, and uploaded files." width="1800" />
+</picture>
 
-## Features
+## Everything has its place
 
-- Secure authentication with email/password, Google OAuth, and GitHub OAuth
-- Project CRUD with status, tags, repository URL, live URL, and cover image
-- Markdown documentation editor with live preview and debounced autosave
-- Direct Cloudinary uploads for images, PDFs, and diagrams
-- Read-only asset library with file search and copy URL actions
-- Snippet library with search, tags, syntax highlighting, copy, and favorites
-- Settings page for profile, avatar, password, and theme preference
-- Responsive dark/light UI
+DevFlow is for developers juggling personal projects, side ideas, and the little details that go with them. Give each project a home and keep useful work easy to find.
 
-## Tech Stack
+- **Projects:** Keep a description, useful links, tags, and cover image together. Mark projects as active, paused, or archived.
+- **Notes:** Write project documentation with a live preview and automatic saving.
+- **Snippets:** Save code you’ll use again. Search it, tag it, favorite it, and copy it when you need it.
+- **Files:** Store screenshots, diagrams, and PDFs alongside their projects. Browse them together in the file library.
+- **Your workspace:** See recent work at a glance, update your profile, and choose a light or dark appearance.
 
-**Client:** React, TypeScript, Vite, Tailwind CSS, React Router, TanStack Query, Zustand, Zod
+Sign up with email, Google, or GitHub. Your workspace is personal, and the layout adapts to desktop and mobile.
 
-**Server:** NestJS, TypeScript, Prisma, Better Auth
+## Keep the details close
 
-**Infrastructure:** PostgreSQL/Neon, Cloudinary, Vercel, Render
+Setup notes, project decisions, and reminders stay with the work they belong to. Write on one side and see the finished page on the other.
 
-## Project Structure
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="client/src/assets/device-mockups/desktop/dark/project-documentation.png" />
+  <img src="client/src/assets/device-mockups/desktop/light/project-documentation.png" alt="DevFlow project notes on a laptop, with an editor and formatted preview side by side." width="1800" />
+</picture>
 
-```txt
-client/   React frontend
-server/   NestJS API and Prisma schema
-docs/     PRD, system design, and UI references
-```
+## Good code is worth keeping
 
-## Local Setup
+Build a collection of useful snippets instead of searching through old projects. Add a description and a few tags so the right piece is easy to find again.
 
-Install dependencies:
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="client/src/assets/device-mockups/paired/dark/snippets.png" />
+  <img src="client/src/assets/device-mockups/paired/light/snippets.png" alt="DevFlow snippet library on a laptop and phone, showing reusable code, tags, and favorites." width="1800" />
+</picture>
 
-```bash
-npm install --prefix client
-npm install --prefix server
-```
+*Screenshots use sample data. Light and dark versions, plus more page previews, are available in the [screenshot gallery](client/src/assets/device-mockups).*
 
-Create `server/.env` with the required backend variables:
+---
 
-```env
-DATABASE_URL=
-BETTER_AUTH_SECRET=
-BETTER_AUTH_URL=http://localhost:3000
-CLIENT_URL=http://localhost:5173
-
-GOOGLE_CLIENT_ID=
-GOOGLE_CLIENT_SECRET=
-GITHUB_CLIENT_ID=
-GITHUB_CLIENT_SECRET=
-
-CLOUDINARY_CLOUD_NAME=
-CLOUDINARY_API_KEY=
-CLOUDINARY_API_SECRET=
-```
-
-Run the apps:
-
-```bash
-npm run start:dev --prefix server
-npm run dev --prefix client
-```
-
-## Production Notes
-
-The client expects:
-
-```env
-VITE_API_URL=https://your-api-domain.com
-```
-
-The server expects:
-
-```env
-BETTER_AUTH_URL=https://your-api-domain.com
-CLIENT_URL=https://your-client-domain.com
-TRUSTED_ORIGINS=https://your-client-domain.com
-```
-
-For SPA routing on Vercel, `client/vercel.json` rewrites all routes to `index.html`.
-
-## Status
-
-DevFlow v1 includes the core workspace experience: authentication, project management, documentation, uploads, snippets, settings, and production deployment configuration.
+[Open DevFlow](https://devflow-five-iota.vercel.app)

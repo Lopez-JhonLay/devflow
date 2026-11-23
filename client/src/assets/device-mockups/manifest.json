@@ -1,0 +1,1408 @@
+{
+  "description": "DevFlow screenshots in original CSS-rendered device frames",
+  "mockData": true,
+  "desktopViewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "mobileViewport": {
+    "width": 390,
+    "height": 844
+  },
+  "mockups": [
+    {
+      "file": "desktop/light/landing.png",
+      "device": "laptop",
+      "theme": "light",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/light/landing.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "paired/light/landing.png",
+      "device": "laptop-and-phone",
+      "theme": "light",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/light/landing.png",
+        "mobile/light/landing.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "desktop/light/sign-in.png",
+      "device": "laptop",
+      "theme": "light",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/light/sign-in.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "desktop/light/sign-up.png",
+      "device": "laptop",
+      "theme": "light",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/light/sign-up.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "desktop/light/forgot-password.png",
+      "device": "laptop",
+      "theme": "light",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/light/forgot-password.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "desktop/light/dashboard.png",
+      "device": "laptop",
+      "theme": "light",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/light/dashboard.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "paired/light/dashboard.png",
+      "device": "laptop-and-phone",
+      "theme": "light",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/light/dashboard.png",
+        "mobile/light/dashboard.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "desktop/light/projects.png",
+      "device": "laptop",
+      "theme": "light",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/light/projects.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "paired/light/projects.png",
+      "device": "laptop-and-phone",
+      "theme": "light",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/light/projects.png",
+        "mobile/light/projects.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "desktop/light/projects-archived.png",
+      "device": "laptop",
+      "theme": "light",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/light/projects-archived.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "desktop/light/project-create.png",
+      "device": "laptop",
+      "theme": "light",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/light/project-create.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "desktop/light/project-overview.png",
+      "device": "laptop",
+      "theme": "light",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/light/project-overview.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "paired/light/project-overview.png",
+      "device": "laptop-and-phone",
+      "theme": "light",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/light/project-overview.png",
+        "mobile/light/project-overview.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "desktop/light/project-edit.png",
+      "device": "laptop",
+      "theme": "light",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/light/project-edit.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "desktop/light/project-documentation.png",
+      "device": "laptop",
+      "theme": "light",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/light/project-documentation.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "paired/light/project-documentation.png",
+      "device": "laptop-and-phone",
+      "theme": "light",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/light/project-documentation.png",
+        "mobile/light/project-documentation.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "desktop/light/project-documentation-preview.png",
+      "device": "laptop",
+      "theme": "light",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/light/project-documentation-preview.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "desktop/light/project-assets.png",
+      "device": "laptop",
+      "theme": "light",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/light/project-assets.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "desktop/light/snippets.png",
+      "device": "laptop",
+      "theme": "light",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/light/snippets.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "paired/light/snippets.png",
+      "device": "laptop-and-phone",
+      "theme": "light",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/light/snippets.png",
+        "mobile/light/snippets.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "desktop/light/snippets-favorites.png",
+      "device": "laptop",
+      "theme": "light",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/light/snippets-favorites.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "desktop/light/snippet-create.png",
+      "device": "laptop",
+      "theme": "light",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/light/snippet-create.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "desktop/light/snippet-edit.png",
+      "device": "laptop",
+      "theme": "light",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/light/snippet-edit.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "desktop/light/files.png",
+      "device": "laptop",
+      "theme": "light",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/light/files.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "paired/light/files.png",
+      "device": "laptop-and-phone",
+      "theme": "light",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/light/files.png",
+        "mobile/light/files.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "desktop/light/files-diagrams.png",
+      "device": "laptop",
+      "theme": "light",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/light/files-diagrams.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "desktop/light/settings.png",
+      "device": "laptop",
+      "theme": "light",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/light/settings.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "paired/light/settings.png",
+      "device": "laptop-and-phone",
+      "theme": "light",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/light/settings.png",
+        "mobile/light/settings.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "desktop/light/settings-appearance.png",
+      "device": "laptop",
+      "theme": "light",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/light/settings-appearance.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "desktop/light/settings-password.png",
+      "device": "laptop",
+      "theme": "light",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/light/settings-password.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "desktop/dark/landing.png",
+      "device": "laptop",
+      "theme": "dark",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/dark/landing.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "paired/dark/landing.png",
+      "device": "laptop-and-phone",
+      "theme": "dark",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/dark/landing.png",
+        "mobile/dark/landing.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "desktop/dark/sign-in.png",
+      "device": "laptop",
+      "theme": "dark",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/dark/sign-in.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "desktop/dark/sign-up.png",
+      "device": "laptop",
+      "theme": "dark",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/dark/sign-up.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "desktop/dark/forgot-password.png",
+      "device": "laptop",
+      "theme": "dark",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/dark/forgot-password.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "desktop/dark/dashboard.png",
+      "device": "laptop",
+      "theme": "dark",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/dark/dashboard.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "paired/dark/dashboard.png",
+      "device": "laptop-and-phone",
+      "theme": "dark",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/dark/dashboard.png",
+        "mobile/dark/dashboard.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "desktop/dark/projects.png",
+      "device": "laptop",
+      "theme": "dark",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/dark/projects.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "paired/dark/projects.png",
+      "device": "laptop-and-phone",
+      "theme": "dark",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/dark/projects.png",
+        "mobile/dark/projects.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "desktop/dark/projects-archived.png",
+      "device": "laptop",
+      "theme": "dark",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/dark/projects-archived.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "desktop/dark/project-create.png",
+      "device": "laptop",
+      "theme": "dark",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/dark/project-create.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "desktop/dark/project-overview.png",
+      "device": "laptop",
+      "theme": "dark",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/dark/project-overview.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "paired/dark/project-overview.png",
+      "device": "laptop-and-phone",
+      "theme": "dark",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/dark/project-overview.png",
+        "mobile/dark/project-overview.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "desktop/dark/project-edit.png",
+      "device": "laptop",
+      "theme": "dark",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/dark/project-edit.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "desktop/dark/project-documentation.png",
+      "device": "laptop",
+      "theme": "dark",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/dark/project-documentation.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "paired/dark/project-documentation.png",
+      "device": "laptop-and-phone",
+      "theme": "dark",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/dark/project-documentation.png",
+        "mobile/dark/project-documentation.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "desktop/dark/project-documentation-preview.png",
+      "device": "laptop",
+      "theme": "dark",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/dark/project-documentation-preview.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "desktop/dark/project-assets.png",
+      "device": "laptop",
+      "theme": "dark",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/dark/project-assets.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "desktop/dark/snippets.png",
+      "device": "laptop",
+      "theme": "dark",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/dark/snippets.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "paired/dark/snippets.png",
+      "device": "laptop-and-phone",
+      "theme": "dark",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/dark/snippets.png",
+        "mobile/dark/snippets.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "desktop/dark/snippets-favorites.png",
+      "device": "laptop",
+      "theme": "dark",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/dark/snippets-favorites.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "desktop/dark/snippet-create.png",
+      "device": "laptop",
+      "theme": "dark",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/dark/snippet-create.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "desktop/dark/snippet-edit.png",
+      "device": "laptop",
+      "theme": "dark",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/dark/snippet-edit.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "desktop/dark/files.png",
+      "device": "laptop",
+      "theme": "dark",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/dark/files.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "paired/dark/files.png",
+      "device": "laptop-and-phone",
+      "theme": "dark",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/dark/files.png",
+        "mobile/dark/files.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "desktop/dark/files-diagrams.png",
+      "device": "laptop",
+      "theme": "dark",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/dark/files-diagrams.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "desktop/dark/settings.png",
+      "device": "laptop",
+      "theme": "dark",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/dark/settings.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "paired/dark/settings.png",
+      "device": "laptop-and-phone",
+      "theme": "dark",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/dark/settings.png",
+        "mobile/dark/settings.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "desktop/dark/settings-appearance.png",
+      "device": "laptop",
+      "theme": "dark",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/dark/settings-appearance.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "desktop/dark/settings-password.png",
+      "device": "laptop",
+      "theme": "dark",
+      "dimensions": {
+        "width": 1800,
+        "height": 1260
+      },
+      "sources": [
+        "desktop/dark/settings-password.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "mobile/light/landing.png",
+      "device": "phone",
+      "theme": "light",
+      "dimensions": {
+        "width": 1100,
+        "height": 1260
+      },
+      "sources": [
+        "mobile/light/landing.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "mobile/light/sign-in.png",
+      "device": "phone",
+      "theme": "light",
+      "dimensions": {
+        "width": 1100,
+        "height": 1260
+      },
+      "sources": [
+        "mobile/light/sign-in.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "mobile/light/sign-up.png",
+      "device": "phone",
+      "theme": "light",
+      "dimensions": {
+        "width": 1100,
+        "height": 1260
+      },
+      "sources": [
+        "mobile/light/sign-up.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "mobile/light/forgot-password.png",
+      "device": "phone",
+      "theme": "light",
+      "dimensions": {
+        "width": 1100,
+        "height": 1260
+      },
+      "sources": [
+        "mobile/light/forgot-password.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "mobile/light/dashboard.png",
+      "device": "phone",
+      "theme": "light",
+      "dimensions": {
+        "width": 1100,
+        "height": 1260
+      },
+      "sources": [
+        "mobile/light/dashboard.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "mobile/light/projects.png",
+      "device": "phone",
+      "theme": "light",
+      "dimensions": {
+        "width": 1100,
+        "height": 1260
+      },
+      "sources": [
+        "mobile/light/projects.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "mobile/light/projects-archived.png",
+      "device": "phone",
+      "theme": "light",
+      "dimensions": {
+        "width": 1100,
+        "height": 1260
+      },
+      "sources": [
+        "mobile/light/projects-archived.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "mobile/light/project-create.png",
+      "device": "phone",
+      "theme": "light",
+      "dimensions": {
+        "width": 1100,
+        "height": 1260
+      },
+      "sources": [
+        "mobile/light/project-create.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "mobile/light/project-overview.png",
+      "device": "phone",
+      "theme": "light",
+      "dimensions": {
+        "width": 1100,
+        "height": 1260
+      },
+      "sources": [
+        "mobile/light/project-overview.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "mobile/light/project-edit.png",
+      "device": "phone",
+      "theme": "light",
+      "dimensions": {
+        "width": 1100,
+        "height": 1260
+      },
+      "sources": [
+        "mobile/light/project-edit.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "mobile/light/project-documentation.png",
+      "device": "phone",
+      "theme": "light",
+      "dimensions": {
+        "width": 1100,
+        "height": 1260
+      },
+      "sources": [
+        "mobile/light/project-documentation.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "mobile/light/project-documentation-preview.png",
+      "device": "phone",
+      "theme": "light",
+      "dimensions": {
+        "width": 1100,
+        "height": 1260
+      },
+      "sources": [
+        "mobile/light/project-documentation-preview.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "mobile/light/project-assets.png",
+      "device": "phone",
+      "theme": "light",
+      "dimensions": {
+        "width": 1100,
+        "height": 1260
+      },
+      "sources": [
+        "mobile/light/project-assets.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "mobile/light/snippets.png",
+      "device": "phone",
+      "theme": "light",
+      "dimensions": {
+        "width": 1100,
+        "height": 1260
+      },
+      "sources": [
+        "mobile/light/snippets.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "mobile/light/snippets-favorites.png",
+      "device": "phone",
+      "theme": "light",
+      "dimensions": {
+        "width": 1100,
+        "height": 1260
+      },
+      "sources": [
+        "mobile/light/snippets-favorites.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "mobile/light/snippet-create.png",
+      "device": "phone",
+      "theme": "light",
+      "dimensions": {
+        "width": 1100,
+        "height": 1260
+      },
+      "sources": [
+        "mobile/light/snippet-create.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "mobile/light/snippet-edit.png",
+      "device": "phone",
+      "theme": "light",
+      "dimensions": {
+        "width": 1100,
+        "height": 1260
+      },
+      "sources": [
+        "mobile/light/snippet-edit.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "mobile/light/files.png",
+      "device": "phone",
+      "theme": "light",
+      "dimensions": {
+        "width": 1100,
+        "height": 1260
+      },
+      "sources": [
+        "mobile/light/files.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "mobile/light/files-diagrams.png",
+      "device": "phone",
+      "theme": "light",
+      "dimensions": {
+        "width": 1100,
+        "height": 1260
+      },
+      "sources": [
+        "mobile/light/files-diagrams.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "mobile/light/settings.png",
+      "device": "phone",
+      "theme": "light",
+      "dimensions": {
+        "width": 1100,
+        "height": 1260
+      },
+      "sources": [
+        "mobile/light/settings.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "mobile/light/settings-appearance.png",
+      "device": "phone",
+      "theme": "light",
+      "dimensions": {
+        "width": 1100,
+        "height": 1260
+      },
+      "sources": [
+        "mobile/light/settings-appearance.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "mobile/light/settings-password.png",
+      "device": "phone",
+      "theme": "light",
+      "dimensions": {
+        "width": 1100,
+        "height": 1260
+      },
+      "sources": [
+        "mobile/light/settings-password.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "mobile/light/navigation-menu.png",
+      "device": "phone",
+      "theme": "light",
+      "dimensions": {
+        "width": 1100,
+        "height": 1260
+      },
+      "sources": [
+        "mobile/light/navigation-menu.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "mobile/dark/landing.png",
+      "device": "phone",
+      "theme": "dark",
+      "dimensions": {
+        "width": 1100,
+        "height": 1260
+      },
+      "sources": [
+        "mobile/dark/landing.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "mobile/dark/sign-in.png",
+      "device": "phone",
+      "theme": "dark",
+      "dimensions": {
+        "width": 1100,
+        "height": 1260
+      },
+      "sources": [
+        "mobile/dark/sign-in.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "mobile/dark/sign-up.png",
+      "device": "phone",
+      "theme": "dark",
+      "dimensions": {
+        "width": 1100,
+        "height": 1260
+      },
+      "sources": [
+        "mobile/dark/sign-up.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "mobile/dark/forgot-password.png",
+      "device": "phone",
+      "theme": "dark",
+      "dimensions": {
+        "width": 1100,
+        "height": 1260
+      },
+      "sources": [
+        "mobile/dark/forgot-password.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "mobile/dark/dashboard.png",
+      "device": "phone",
+      "theme": "dark",
+      "dimensions": {
+        "width": 1100,
+        "height": 1260
+      },
+      "sources": [
+        "mobile/dark/dashboard.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "mobile/dark/projects.png",
+      "device": "phone",
+      "theme": "dark",
+      "dimensions": {
+        "width": 1100,
+        "height": 1260
+      },
+      "sources": [
+        "mobile/dark/projects.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "mobile/dark/projects-archived.png",
+      "device": "phone",
+      "theme": "dark",
+      "dimensions": {
+        "width": 1100,
+        "height": 1260
+      },
+      "sources": [
+        "mobile/dark/projects-archived.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "mobile/dark/project-create.png",
+      "device": "phone",
+      "theme": "dark",
+      "dimensions": {
+        "width": 1100,
+        "height": 1260
+      },
+      "sources": [
+        "mobile/dark/project-create.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "mobile/dark/project-overview.png",
+      "device": "phone",
+      "theme": "dark",
+      "dimensions": {
+        "width": 1100,
+        "height": 1260
+      },
+      "sources": [
+        "mobile/dark/project-overview.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "mobile/dark/project-edit.png",
+      "device": "phone",
+      "theme": "dark",
+      "dimensions": {
+        "width": 1100,
+        "height": 1260
+      },
+      "sources": [
+        "mobile/dark/project-edit.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "mobile/dark/project-documentation.png",
+      "device": "phone",
+      "theme": "dark",
+      "dimensions": {
+        "width": 1100,
+        "height": 1260
+      },
+      "sources": [
+        "mobile/dark/project-documentation.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "mobile/dark/project-documentation-preview.png",
+      "device": "phone",
+      "theme": "dark",
+      "dimensions": {
+        "width": 1100,
+        "height": 1260
+      },
+      "sources": [
+        "mobile/dark/project-documentation-preview.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "mobile/dark/project-assets.png",
+      "device": "phone",
+      "theme": "dark",
+      "dimensions": {
+        "width": 1100,
+        "height": 1260
+      },
+      "sources": [
+        "mobile/dark/project-assets.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "mobile/dark/snippets.png",
+      "device": "phone",
+      "theme": "dark",
+      "dimensions": {
+        "width": 1100,
+        "height": 1260
+      },
+      "sources": [
+        "mobile/dark/snippets.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "mobile/dark/snippets-favorites.png",
+      "device": "phone",
+      "theme": "dark",
+      "dimensions": {
+        "width": 1100,
+        "height": 1260
+      },
+      "sources": [
+        "mobile/dark/snippets-favorites.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "mobile/dark/snippet-create.png",
+      "device": "phone",
+      "theme": "dark",
+      "dimensions": {
+        "width": 1100,
+        "height": 1260
+      },
+      "sources": [
+        "mobile/dark/snippet-create.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "mobile/dark/snippet-edit.png",
+      "device": "phone",
+      "theme": "dark",
+      "dimensions": {
+        "width": 1100,
+        "height": 1260
+      },
+      "sources": [
+        "mobile/dark/snippet-edit.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "mobile/dark/files.png",
+      "device": "phone",
+      "theme": "dark",
+      "dimensions": {
+        "width": 1100,
+        "height": 1260
+      },
+      "sources": [
+        "mobile/dark/files.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "mobile/dark/files-diagrams.png",
+      "device": "phone",
+      "theme": "dark",
+      "dimensions": {
+        "width": 1100,
+        "height": 1260
+      },
+      "sources": [
+        "mobile/dark/files-diagrams.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "mobile/dark/settings.png",
+      "device": "phone",
+      "theme": "dark",
+      "dimensions": {
+        "width": 1100,
+        "height": 1260
+      },
+      "sources": [
+        "mobile/dark/settings.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "mobile/dark/settings-appearance.png",
+      "device": "phone",
+      "theme": "dark",
+      "dimensions": {
+        "width": 1100,
+        "height": 1260
+      },
+      "sources": [
+        "mobile/dark/settings-appearance.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "mobile/dark/settings-password.png",
+      "device": "phone",
+      "theme": "dark",
+      "dimensions": {
+        "width": 1100,
+        "height": 1260
+      },
+      "sources": [
+        "mobile/dark/settings-password.png"
+      ],
+      "mockData": true
+    },
+    {
+      "file": "mobile/dark/navigation-menu.png",
+      "device": "phone",
+      "theme": "dark",
+      "dimensions": {
+        "width": 1100,
+        "height": 1260
+      },
+      "sources": [
+        "mobile/dark/navigation-menu.png"
+      ],
+      "mockData": true
+    }
+  ]
+}

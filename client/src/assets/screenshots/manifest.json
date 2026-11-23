@@ -1,0 +1,905 @@
+{
+  "description": "DevFlow screenshots with fictional local data",
+  "screenshots": [
+    {
+      "file": "desktop/light/landing.png",
+      "route": "/",
+      "viewport": {
+        "width": 1440,
+        "height": 1080
+      },
+      "theme": "light",
+      "mockData": true
+    },
+    {
+      "file": "desktop/light/sign-in.png",
+      "route": "/login",
+      "viewport": {
+        "width": 1440,
+        "height": 1080
+      },
+      "theme": "light",
+      "mockData": true
+    },
+    {
+      "file": "desktop/light/sign-up.png",
+      "route": "/register",
+      "viewport": {
+        "width": 1440,
+        "height": 1080
+      },
+      "theme": "light",
+      "mockData": true
+    },
+    {
+      "file": "desktop/light/forgot-password.png",
+      "route": "/forgot-password",
+      "viewport": {
+        "width": 1440,
+        "height": 1080
+      },
+      "theme": "light",
+      "mockData": true
+    },
+    {
+      "file": "desktop/light/dashboard.png",
+      "route": "/dashboard",
+      "viewport": {
+        "width": 1440,
+        "height": 1080
+      },
+      "theme": "light",
+      "mockData": true
+    },
+    {
+      "file": "desktop/light/projects.png",
+      "route": "/projects",
+      "viewport": {
+        "width": 1440,
+        "height": 1080
+      },
+      "theme": "light",
+      "mockData": true
+    },
+    {
+      "file": "desktop/light/projects-archived.png",
+      "route": "/projects",
+      "viewport": {
+        "width": 1440,
+        "height": 1080
+      },
+      "theme": "light",
+      "mockData": true
+    },
+    {
+      "file": "desktop/light/project-create.png",
+      "route": "/projects",
+      "viewport": {
+        "width": 1440,
+        "height": 1080
+      },
+      "theme": "light",
+      "mockData": true
+    },
+    {
+      "file": "desktop/light/project-overview.png",
+      "route": "/projects/personal-website",
+      "viewport": {
+        "width": 1440,
+        "height": 1080
+      },
+      "theme": "light",
+      "mockData": true
+    },
+    {
+      "file": "desktop/light/project-edit.png",
+      "route": "/projects/personal-website",
+      "viewport": {
+        "width": 1440,
+        "height": 1080
+      },
+      "theme": "light",
+      "mockData": true
+    },
+    {
+      "file": "desktop/light/project-documentation.png",
+      "route": "/projects/personal-website",
+      "viewport": {
+        "width": 1440,
+        "height": 1080
+      },
+      "theme": "light",
+      "mockData": true
+    },
+    {
+      "file": "desktop/light/project-assets.png",
+      "route": "/projects/personal-website",
+      "viewport": {
+        "width": 1440,
+        "height": 1080
+      },
+      "theme": "light",
+      "mockData": true
+    },
+    {
+      "file": "desktop/light/snippets.png",
+      "route": "/snippets",
+      "viewport": {
+        "width": 1440,
+        "height": 1080
+      },
+      "theme": "light",
+      "mockData": true
+    },
+    {
+      "file": "desktop/light/snippets-favorites.png",
+      "route": "/snippets",
+      "viewport": {
+        "width": 1440,
+        "height": 1080
+      },
+      "theme": "light",
+      "mockData": true
+    },
+    {
+      "file": "desktop/light/snippet-create.png",
+      "route": "/snippets",
+      "viewport": {
+        "width": 1440,
+        "height": 1080
+      },
+      "theme": "light",
+      "mockData": true
+    },
+    {
+      "file": "desktop/light/snippet-edit.png",
+      "route": "/snippets",
+      "viewport": {
+        "width": 1440,
+        "height": 1080
+      },
+      "theme": "light",
+      "mockData": true
+    },
+    {
+      "file": "desktop/light/files.png",
+      "route": "/files",
+      "viewport": {
+        "width": 1440,
+        "height": 1080
+      },
+      "theme": "light",
+      "mockData": true
+    },
+    {
+      "file": "desktop/light/files-diagrams.png",
+      "route": "/files",
+      "viewport": {
+        "width": 1440,
+        "height": 1080
+      },
+      "theme": "light",
+      "mockData": true
+    },
+    {
+      "file": "desktop/light/settings.png",
+      "route": "/settings",
+      "viewport": {
+        "width": 1440,
+        "height": 1080
+      },
+      "theme": "light",
+      "mockData": true
+    },
+    {
+      "file": "desktop/light/settings-password.png",
+      "route": "/settings",
+      "viewport": {
+        "width": 1440,
+        "height": 1080
+      },
+      "theme": "light",
+      "mockData": true
+    },
+    {
+      "file": "desktop/dark/landing.png",
+      "route": "/",
+      "viewport": {
+        "width": 1440,
+        "height": 1080
+      },
+      "theme": "dark",
+      "mockData": true
+    },
+    {
+      "file": "desktop/dark/sign-in.png",
+      "route": "/login",
+      "viewport": {
+        "width": 1440,
+        "height": 1080
+      },
+      "theme": "dark",
+      "mockData": true
+    },
+    {
+      "file": "desktop/dark/sign-up.png",
+      "route": "/register",
+      "viewport": {
+        "width": 1440,
+        "height": 1080
+      },
+      "theme": "dark",
+      "mockData": true
+    },
+    {
+      "file": "desktop/dark/forgot-password.png",
+      "route": "/forgot-password",
+      "viewport": {
+        "width": 1440,
+        "height": 1080
+      },
+      "theme": "dark",
+      "mockData": true
+    },
+    {
+      "file": "desktop/dark/dashboard.png",
+      "route": "/dashboard",
+      "viewport": {
+        "width": 1440,
+        "height": 1080
+      },
+      "theme": "dark",
+      "mockData": true
+    },
+    {
+      "file": "desktop/dark/projects.png",
+      "route": "/projects",
+      "viewport": {
+        "width": 1440,
+        "height": 1080
+      },
+      "theme": "dark",
+      "mockData": true
+    },
+    {
+      "file": "desktop/dark/projects-archived.png",
+      "route": "/projects",
+      "viewport": {
+        "width": 1440,
+        "height": 1080
+      },
+      "theme": "dark",
+      "mockData": true
+    },
+    {
+      "file": "desktop/dark/project-create.png",
+      "route": "/projects",
+      "viewport": {
+        "width": 1440,
+        "height": 1080
+      },
+      "theme": "dark",
+      "mockData": true
+    },
+    {
+      "file": "desktop/dark/project-overview.png",
+      "route": "/projects/personal-website",
+      "viewport": {
+        "width": 1440,
+        "height": 1080
+      },
+      "theme": "dark",
+      "mockData": true
+    },
+    {
+      "file": "desktop/dark/project-edit.png",
+      "route": "/projects/personal-website",
+      "viewport": {
+        "width": 1440,
+        "height": 1080
+      },
+      "theme": "dark",
+      "mockData": true
+    },
+    {
+      "file": "desktop/dark/project-documentation.png",
+      "route": "/projects/personal-website",
+      "viewport": {
+        "width": 1440,
+        "height": 1080
+      },
+      "theme": "dark",
+      "mockData": true
+    },
+    {
+      "file": "desktop/dark/project-assets.png",
+      "route": "/projects/personal-website",
+      "viewport": {
+        "width": 1440,
+        "height": 1080
+      },
+      "theme": "dark",
+      "mockData": true
+    },
+    {
+      "file": "desktop/dark/snippets.png",
+      "route": "/snippets",
+      "viewport": {
+        "width": 1440,
+        "height": 1080
+      },
+      "theme": "dark",
+      "mockData": true
+    },
+    {
+      "file": "desktop/dark/snippets-favorites.png",
+      "route": "/snippets",
+      "viewport": {
+        "width": 1440,
+        "height": 1080
+      },
+      "theme": "dark",
+      "mockData": true
+    },
+    {
+      "file": "desktop/dark/snippet-create.png",
+      "route": "/snippets",
+      "viewport": {
+        "width": 1440,
+        "height": 1080
+      },
+      "theme": "dark",
+      "mockData": true
+    },
+    {
+      "file": "desktop/dark/snippet-edit.png",
+      "route": "/snippets",
+      "viewport": {
+        "width": 1440,
+        "height": 1080
+      },
+      "theme": "dark",
+      "mockData": true
+    },
+    {
+      "file": "desktop/dark/files.png",
+      "route": "/files",
+      "viewport": {
+        "width": 1440,
+        "height": 1080
+      },
+      "theme": "dark",
+      "mockData": true
+    },
+    {
+      "file": "desktop/dark/files-diagrams.png",
+      "route": "/files",
+      "viewport": {
+        "width": 1440,
+        "height": 1080
+      },
+      "theme": "dark",
+      "mockData": true
+    },
+    {
+      "file": "desktop/dark/settings.png",
+      "route": "/settings",
+      "viewport": {
+        "width": 1440,
+        "height": 1080
+      },
+      "theme": "dark",
+      "mockData": true
+    },
+    {
+      "file": "desktop/dark/settings-password.png",
+      "route": "/settings",
+      "viewport": {
+        "width": 1440,
+        "height": 1080
+      },
+      "theme": "dark",
+      "mockData": true
+    },
+    {
+      "file": "mobile/light/landing.png",
+      "route": "/",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "light",
+      "mockData": true
+    },
+    {
+      "file": "mobile/light/sign-in.png",
+      "route": "/login",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "light",
+      "mockData": true
+    },
+    {
+      "file": "mobile/light/sign-up.png",
+      "route": "/register",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "light",
+      "mockData": true
+    },
+    {
+      "file": "mobile/light/forgot-password.png",
+      "route": "/forgot-password",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "light",
+      "mockData": true
+    },
+    {
+      "file": "mobile/light/dashboard.png",
+      "route": "/dashboard",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "light",
+      "mockData": true
+    },
+    {
+      "file": "mobile/light/projects.png",
+      "route": "/projects",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "light",
+      "mockData": true
+    },
+    {
+      "file": "mobile/light/projects-archived.png",
+      "route": "/projects",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "light",
+      "mockData": true
+    },
+    {
+      "file": "mobile/light/project-create.png",
+      "route": "/projects",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "light",
+      "mockData": true
+    },
+    {
+      "file": "mobile/light/project-overview.png",
+      "route": "/projects/personal-website",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "light",
+      "mockData": true
+    },
+    {
+      "file": "mobile/light/project-edit.png",
+      "route": "/projects/personal-website",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "light",
+      "mockData": true
+    },
+    {
+      "file": "mobile/light/project-documentation.png",
+      "route": "/projects/personal-website",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "light",
+      "mockData": true
+    },
+    {
+      "file": "mobile/light/project-assets.png",
+      "route": "/projects/personal-website",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "light",
+      "mockData": true
+    },
+    {
+      "file": "mobile/light/snippets.png",
+      "route": "/snippets",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "light",
+      "mockData": true
+    },
+    {
+      "file": "mobile/light/snippets-favorites.png",
+      "route": "/snippets",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "light",
+      "mockData": true
+    },
+    {
+      "file": "mobile/light/snippet-create.png",
+      "route": "/snippets",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "light",
+      "mockData": true
+    },
+    {
+      "file": "mobile/light/snippet-edit.png",
+      "route": "/snippets",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "light",
+      "mockData": true
+    },
+    {
+      "file": "mobile/light/files.png",
+      "route": "/files",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "light",
+      "mockData": true
+    },
+    {
+      "file": "mobile/light/files-diagrams.png",
+      "route": "/files",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "light",
+      "mockData": true
+    },
+    {
+      "file": "mobile/light/settings.png",
+      "route": "/settings",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "light",
+      "mockData": true
+    },
+    {
+      "file": "mobile/light/settings-password.png",
+      "route": "/settings",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "light",
+      "mockData": true
+    },
+    {
+      "file": "mobile/light/navigation-menu.png",
+      "route": "/dashboard",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "light",
+      "mockData": true
+    },
+    {
+      "file": "mobile/dark/landing.png",
+      "route": "/",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "dark",
+      "mockData": true
+    },
+    {
+      "file": "mobile/dark/sign-in.png",
+      "route": "/login",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "dark",
+      "mockData": true
+    },
+    {
+      "file": "mobile/dark/sign-up.png",
+      "route": "/register",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "dark",
+      "mockData": true
+    },
+    {
+      "file": "mobile/dark/forgot-password.png",
+      "route": "/forgot-password",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "dark",
+      "mockData": true
+    },
+    {
+      "file": "mobile/dark/dashboard.png",
+      "route": "/dashboard",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "dark",
+      "mockData": true
+    },
+    {
+      "file": "mobile/dark/projects.png",
+      "route": "/projects",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "dark",
+      "mockData": true
+    },
+    {
+      "file": "mobile/dark/projects-archived.png",
+      "route": "/projects",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "dark",
+      "mockData": true
+    },
+    {
+      "file": "mobile/dark/project-create.png",
+      "route": "/projects",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "dark",
+      "mockData": true
+    },
+    {
+      "file": "mobile/dark/project-overview.png",
+      "route": "/projects/personal-website",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "dark",
+      "mockData": true
+    },
+    {
+      "file": "mobile/dark/project-edit.png",
+      "route": "/projects/personal-website",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "dark",
+      "mockData": true
+    },
+    {
+      "file": "mobile/dark/project-documentation.png",
+      "route": "/projects/personal-website",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "dark",
+      "mockData": true
+    },
+    {
+      "file": "mobile/dark/project-assets.png",
+      "route": "/projects/personal-website",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "dark",
+      "mockData": true
+    },
+    {
+      "file": "mobile/dark/snippets.png",
+      "route": "/snippets",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "dark",
+      "mockData": true
+    },
+    {
+      "file": "mobile/dark/snippets-favorites.png",
+      "route": "/snippets",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "dark",
+      "mockData": true
+    },
+    {
+      "file": "mobile/dark/snippet-create.png",
+      "route": "/snippets",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "dark",
+      "mockData": true
+    },
+    {
+      "file": "mobile/dark/snippet-edit.png",
+      "route": "/snippets",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "dark",
+      "mockData": true
+    },
+    {
+      "file": "mobile/dark/files.png",
+      "route": "/files",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "dark",
+      "mockData": true
+    },
+    {
+      "file": "mobile/dark/files-diagrams.png",
+      "route": "/files",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "dark",
+      "mockData": true
+    },
+    {
+      "file": "mobile/dark/settings.png",
+      "route": "/settings",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "dark",
+      "mockData": true
+    },
+    {
+      "file": "mobile/dark/settings-password.png",
+      "route": "/settings",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "dark",
+      "mockData": true
+    },
+    {
+      "file": "mobile/dark/navigation-menu.png",
+      "route": "/dashboard",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "dark",
+      "mockData": true
+    },
+    {
+      "file": "desktop/light/project-documentation-preview.png",
+      "route": "/projects/personal-website",
+      "viewport": {
+        "width": 1440,
+        "height": 1080
+      },
+      "theme": "light",
+      "mockData": true
+    },
+    {
+      "file": "desktop/light/settings-appearance.png",
+      "route": "/settings",
+      "viewport": {
+        "width": 1440,
+        "height": 1080
+      },
+      "theme": "light",
+      "mockData": true
+    },
+    {
+      "file": "desktop/dark/project-documentation-preview.png",
+      "route": "/projects/personal-website",
+      "viewport": {
+        "width": 1440,
+        "height": 1080
+      },
+      "theme": "dark",
+      "mockData": true
+    },
+    {
+      "file": "desktop/dark/settings-appearance.png",
+      "route": "/settings",
+      "viewport": {
+        "width": 1440,
+        "height": 1080
+      },
+      "theme": "dark",
+      "mockData": true
+    },
+    {
+      "file": "mobile/light/project-documentation-preview.png",
+      "route": "/projects/personal-website",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "light",
+      "mockData": true
+    },
+    {
+      "file": "mobile/light/settings-appearance.png",
+      "route": "/settings",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "light",
+      "mockData": true
+    },
+    {
+      "file": "mobile/dark/project-documentation-preview.png",
+      "route": "/projects/personal-website",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "dark",
+      "mockData": true
+    },
+    {
+      "file": "mobile/dark/settings-appearance.png",
+      "route": "/settings",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "dark",
+      "mockData": true
+    }
+  ]
+}

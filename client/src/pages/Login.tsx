@@ -4,7 +4,6 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { authClient } from '@/lib/auth-client';
-import { ThemeToggle } from '@/components/shared/ThemeToggle';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -58,13 +57,10 @@ export default function LoginPage() {
 
   return (
     <div className="relative flex min-h-screen items-center justify-center bg-background p-4 font-sans text-foreground">
-      <div className="absolute right-4 top-4">
-        <ThemeToggle />
-      </div>
 
       <div className="w-full max-w-110 rounded-[32px] border border-border bg-card p-8 text-card-foreground shadow-sm">
         <div className="flex flex-col items-center mb-8">
-          <img src={devflowLogo} alt="DevFlow" className="mb-5 h-22 w-auto max-w-72 object-contain" />
+          <Link to="/" aria-label="DevFlow home"><img src={devflowLogo} alt="DevFlow" className="mb-5 h-22 w-auto max-w-full object-contain" /></Link>
           <h1 className="text-2xl font-bold text-foreground mb-2">Welcome back</h1>
           <p className="text-sm text-muted-foreground text-center">Sign in to your DevFlow account.</p>
         </div>
